@@ -22,7 +22,7 @@ async function submitBooking(event) {
     };
 
     try {
-        const response = await fetch('https://anathaa-demo.onrender.com/api/contact', {
+        const response = await fetch('https://anathaa-demo.onrender.com/api/book-visit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bookingData)
