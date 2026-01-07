@@ -1,0 +1,1945 @@
+/* Hide floating menu button at bottom left if still visible */
+#mobile-menu-btn {
+    position: static !important;
+    left: unset !important;
+    bottom: unset !important;
+    margin: 0 !important;
+    z-index: 1 !important;
+}
+.lap-btn, .lap-btn-wrap {
+    display: flex !important;
+}
+/* Mobile menu panel modern styles */
+.mobile-menu-sheet {
+    width: 320px;
+    max-width: 92vw;
+        min-height: 0;
+    background: #fff;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border-radius: 22px 0 0 22px;
+        padding: 2rem 1.5rem 0.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.7rem;
+    align-items: stretch;
+    position: relative;
+    box-sizing: border-box;
+}
+.close-mobile-menu-btn {
+    align-self: flex-end;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: none;
+    transition: background 0.2s;
+}
+.close-mobile-menu-btn:hover {
+    background: #e0e7ef;
+}
+.mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+.mobile-menu-links a {
+    font-size: 1.15rem;
+    color: #22543d;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border-radius: 10px;
+    padding: 0.7rem 1.1rem;
+    transition: background 0.2s, color 0.2s;
+    display: block;
+}
+.mobile-menu-links a:hover,
+.mobile-menu-links a:focus {
+    background: rgba(34,84,61,0.09);
+}
+.mobile-theme-toggle-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+.theme-toggle-btn {
+    display: block;
+    padding: 0.9rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    background: #f3f4f6;
+    color: #1B6E38;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.10);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    outline: none;
+    min-width: 160px;
+    max-width: 90vw;
+    margin: 0 auto;
+    font-family: 'Poppins', 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+}
+.theme-toggle-btn.dark {
+    background: #1a2332;
+    color: #fff;
+    box-shadow: 0 2px 16px 0 rgba(30,34,40,0.13);
+}
+@media (max-width: 600px) {
+    .mobile-menu-sheet {
+        width: 98vw;
+        max-width: 99vw;
+        padding: 1.2rem 0.5rem 1.3rem 0.5rem;
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 16px;
+    }
+    .mobile-theme-toggle-container {
+        margin-top: 1.2rem;
+        margin-bottom: 0;
+    }
+    .theme-toggle-btn {
+        padding: 0.8rem 1.1rem;
+        font-size: 1rem;
+        border-radius: 12px;
+        min-width: 120px;
+        /* removed invalid stroke property */
+    }
+}
+[data-theme="dark"] .mobile-menu-sheet {
+        /* removed invalid stroke property */
+    background: #181c1f;
+    color: #d4a95f;
+}
+[data-theme="dark"] .theme-toggle-btn {
+    color: #d4a95f !important;
+    font-weight: 700 !important;
+    font-family: 'Poppins', 'Inter', sans-serif !important;
+    letter-spacing: 0.5px !important;
+}
+[data-theme="dark"] .theme-toggle-btn:active, [data-theme="dark"] .theme-toggle-btn:focus {
+    background: #222;
+    color: #ffe082;
+}
+[data-theme="dark"] .close-mobile-menu-btn {
+    background: #23272b !important;
+    color: #d4a95f !important;
+}
+[data-theme="dark"] .close-mobile-menu-btn svg {
+    color: #d4a95f !important;
+}
+[data-theme="dark"] .close-mobile-menu-btn svg path {
+    stroke: #d4a95f !important;
+}
+[data-theme="dark"] .mobile-menu-links a {
+    color: #d4a95f !important;
+    font-weight: 700;
+    opacity: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+[data-theme="dark"] .mobile-menu-links a:hover,
+[data-theme="dark"] .mobile-menu-links a:focus {
+    background: rgba(212,169,95,0.08);
+    color: #fff !important;
+}
+/* Force mobile menu overlay to cover the entire viewport and block all content */
+
+/* Mobile menu overlay: always solid for clarity */
+#mobile-menu-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    justify-content: flex-end;
+    background: rgba(30,30,30,0.32);
+    backdrop-filter: blur(2px);
+}
+#mobile-menu-panel.active {
+    display: flex;
+}
+#mobile-menu-panel nav {
+    width: 320px;
+    max-width: 90vw;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border-radius: 18px 0 0 18px;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+    position: relative;
+}
+#mobile-menu-panel .theme-buttons {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 90vw;
+    margin: 0 auto 0 auto;
+    background: #fff;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.07);
+    border-radius: 0 0 18px 0;
+    padding: 0.75rem 1.5rem 1.25rem 1.5rem;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+}
+#theme-toggle-mobile {
+    width: 100%;
+    background: #f3f4f6;
+    color: #176a37;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    padding: 0.9rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: background 0.2s, color 0.2s;
+}
+#theme-toggle-mobile:active, #theme-toggle-mobile:focus {
+    background: #e0e7ef;
+    color: #14552D;
+}
+/* Mobile menu close button: always visible on white */
+#close-mobile-menu {
+    background: #fff !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+@media (prefers-color-scheme: dark) {
+    #mobile-menu-panel nav {
+        background: #181c1f;
+        color: #fff;
+    }
+    #mobile-menu-panel .theme-buttons {
+        background: #181c1f;
+    }
+    #theme-toggle-mobile {
+        background: #23272b;
+        color: #fff;
+    }
+    #theme-toggle-mobile:active, #theme-toggle-mobile:focus {
+        background: #222;
+        color: #ffe082;
+    }
+    #close-mobile-menu {
+        background: #23272b !important;
+    }
+}
+/* Modern Mobile Menu Panel Styles */
+#mobile-menu-panel {
+    display: none;
+}
+#mobile-menu-panel.active {
+    display: flex;
+}
+#mobile-menu-panel {
+    transition: background 0.3s;
+}
+#mobile-menu-panel .animate-slideInRight {
+    animation: slideInRight 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+/* ========== Progress Bar ========== */
+.progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(23, 106, 55, 0.15);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* ========== Logo Styles ========== */
+.logo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    margin-top: -15px; /* Pull the logo up to create the pop-out effect */
+}
+
+.logo-image {
+    height: 90px; /* Slightly larger for better visibility */
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.logo-container:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.logo-container:hover img {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .logo-container {
+        height: 65px;
+    }
+    
+    .logo-container img {
+        height: 70px;
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-container {
+        height: 60px;
+        margin-top: -5px;
+    }
+    
+    .logo-container img {
+        height: 65px;
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-container {
+        height: 55px;
+    }
+    
+    .logo-container img {
+        height: 60px;
+        max-width: 140px;
+    }
+}
+
+/* ========== Header Styles ========== */
+.site-header,
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* fully solid header background - no transparency */
+    background: #ffffff;
+    z-index: 1100;
+    padding: 0 2.5rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+/* Ensure content starts below fixed header */
+body {
+    padding-top: 80px;
+}
+
+.site-header.scrolled,
+#main-header.scrolled {
+    padding: 0.75rem 2.5rem; /* Adjusted padding for scrolled state */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    height: 90px; /* Slightly reduced height when scrolled */
+}
+
+/* Ensure content doesn't get hidden behind the header */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Header styling */
+.site-header,
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 100px; /* Updated to match new height */
+    display: flex;
+    align-items: center;
+    padding: 0 2rem; /* Add horizontal padding */
+    transition: all 0.3s ease;
+}
+
+/* Adjust hero section to account for header */
+
+@media (max-width: 480px) {
+    .site-header,
+    #main-header {
+        height: 60px;
+        padding: 0.5rem 1rem;
+    }
+    body {
+        padding-top: 60px !important;
+    }
+    .hero-section {
+        margin-top: 0 !important;
+        min-height: 50vh;
+        height: auto;
+    }
+    .hero-content h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .logo-container img {
+        height: 35px;
+        max-width: 120px;
+    }
+}
+
+/* ========== Hero Section ========== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px); /* Account for header height */
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: #000;
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Hero Video Styles */
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 0;
+    display: none; /* Start with display none, will be shown by JS */
+}
+
+.hero-video.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+/* Video Navigation Dots */
+.video-dot {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.video-dot.active {
+    background-color: white !important;
+    transform: scale(1.2);
+}
+
+/* Hero Content */
+.hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 1rem;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Explore Button Container */
+.explore-btn-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(80px + 1cm); /* Moved down by 0.5cm from previous position (was 1.5cm, now 1cm from original) */
+    z-index: 20;
+    pointer-events: auto;
+    text-align: center;
+    width: 100%;
+}
+
+/* Modern Button Style */
+.explore-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(23, 106, 55, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.explore-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #165A2E;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.explore-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.explore-btn:hover::before {
+    opacity: 1;
+}
+
+.explore-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.explore-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(22, 90, 46, 0.7);
+    z-index: -1;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.explore-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: white;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.explore-btn:hover::before {
+    opacity: 1;
+}
+
+.explore-btn:hover::after {
+    width: 60%;
+}
+
+/* Button Animation */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .hero-section {
+        min-height: 70vh;
+    }
+    
+    .explore-btn {
+        padding: 10px 22px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 60vh;
+    }
+    
+    .explore-btn {
+        padding: 8px 20px;
+        font-size: 0.8rem;
+    }
+    
+    .explore-btn-container {
+        bottom: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        min-height: 50vh;
+    }
+    
+    .explore-btn {
+        padding: 8px 18px;
+        font-size: 0.75rem;
+    }
+    
+    .explore-btn-container {
+        bottom: 20px;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 80vh;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Gradient Overlay */
+.video-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #2c5282;
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 2rem 1rem;
+    text-align: center;
+    color: #1a202c;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Disable animations when resizing */
+.resize-animation-stopper *,
+.resize-animation-stopper *::before,
+.resize-animation-stopper *::after {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Prevent scrolling when mobile menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+.site-header.scrolled {
+    padding: 0.75rem 0;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+}
+
+.logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+    height: 50px; /* Adjust based on your logo's aspect ratio */
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+/* Logo text hidden as we're using an image */
+.logo-text {
+    display: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: #1E293B;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    width: calc(100% - 2rem);
+    height: 2px;
+    background-color: #176A37;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #176A37;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.nav-link.active {
+    color: #176A37;
+    font-weight: 600;
+}
+
+.cta-button {
+    background: #2c5282;
+    color: white;
+    padding: 0.75rem 1.75rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cta-button:hover {
+    background: #2b6cb0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 82, 130, 0.2);
+}
+
+.cta-button svg {
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover svg {
+    transform: translateX(3px);
+}
+
+/* Mobile menu button */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 1001;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle svg {
+    width: 24px;
+    height: 24px;
+    stroke: #176a37;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle.active svg {
+    stroke: #176a37;
+}
+
+.menu-toggle:hover svg {
+    transform: scale(1.1);
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .nav-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background: white;
+        padding: 6rem 2rem 2rem;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+    }
+    
+    .nav-menu.mobile-visible {
+        transform: translateX(0);
+    }
+    
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-menu.mobile-visible {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background: white;
+        padding: 6rem 2rem 2rem;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .nav-menu.mobile-visible.active {
+        transform: translateX(0);
+    }
+    
+    .nav-link {
+        padding: 1rem 0;
+        font-size: 1.1rem;
+        width: 100%;
+        text-align: left;
+    }
+    
+    .cta-button {
+        margin-top: 1rem;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* Add some padding to the body to account for fixed header */
+body {
+    padding-top: 5rem;
+}
+
+.progress__bar {
+    height: 100%;
+    width: 0%;
+    background: #165A2E;
+    transition: width 200ms var(--ease);
+}
+
+/* ========== Page Loader ========== */
+.loader {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: var(--surface);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 300ms var(--ease), visibility 300ms var(--ease);
+}
+
+.loader.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.logo-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--gold-500);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(246, 194, 0, 0.7);
+    animation: pulseDot 1.2s ease-out infinite;
+}
+
+@keyframes pulseDot {
+    0% { box-shadow: 0 0 0 0 rgba(246, 194, 0, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(246, 194, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(246, 194, 0, 0); }
+}
+
+/* ========== Header Styles ========== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    /* solid header background (uses theme token) */
+    background: rgb(var(--color-header-bg));
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s var(--ease);
+}
+
+.site-header.scrolled {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: rgb(var(--color-header-bg));
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+/* Logo Styles */
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: translateY(-2px);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.logo-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0F4D2E;
+    letter-spacing: -0.5px;
+}
+
+.logo-subtitle {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1E7D43;
+    margin-top: 2px;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    position: relative;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1E293B;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #176A37;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* CTA Button */
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #176A37;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(23, 106, 55, 0.2);
+}
+
+.cta-button:hover {
+    background: #0F4D2E;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(23, 106, 55, 0.3);
+}
+
+.cta-button svg {
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover svg {
+    transform: translateX(4px);
+}
+
+/* Mobile Menu Button */
+.mobile-menu-button {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 100;
+}
+
+.menu-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #0F4D2E;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-button.active .menu-line:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.mobile-menu-button.active .menu-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-button.active .menu-line:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 320px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+    transition: right 0.4s ease;
+    padding: 6rem 2rem 2rem;
+    overflow-y: auto;
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.mobile-nav-link {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #334155;
+    text-decoration: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #E2E8F0;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+    color: #176A37;
+}
+
+.mobile-cta {
+    display: block;
+    text-align: center;
+    background: #176A37;
+    color: white;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-cta:hover {
+    background: #0F4D2E;
+    transform: translateY(-2px);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .nav {
+        height: 70px;
+    }
+    
+    .nav-menu {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .mobile-menu-button {
+        display: flex;
+    }
+    
+    .mobile-menu {
+        display: block;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .site-header {
+        background: rgba(15, 23, 42, 0.8);
+    }
+    
+    .site-header.scrolled {
+        background: rgba(15, 23, 42, 0.95);
+    }
+    
+    .nav-link {
+        color: #E2E8F0;
+    }
+    
+    .nav-link:hover,
+    .nav-link.active {
+        color: #7DD3FC;
+    }
+    
+    .mobile-menu {
+        background: #0F172A;
+    }
+    
+    .mobile-nav-link {
+        color: #E2E8F0;
+        border-color: #2D3748;
+    }
+    
+    .mobile-nav-link:hover,
+    .mobile-nav-link.active {
+        color: #7DD3FC;
+    }
+}
+
+/* Improve visibility of the theme toggle and nav items when header is light */
+.site-header .single-theme-btn {
+    /* solid button with clear border for light theme */
+    background: #ffffff;
+    border: 2px solid #176A37;
+    color: #14552D;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 8px 12px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.site-header .single-theme-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(23,106,55,0.08);
+}
+
+/* Make sure the button edge is visible against white header (slight outline) */
+.site-header .single-theme-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(23,106,55,0.08);
+}
+
+/* Ensure nav links in the header are sufficiently dark and readable */
+.site-header .nav-link {
+    color: #1E293B; /* dark slate for good contrast */
+    opacity: 0.95;
+}
+
+.site-header .nav-link:hover,
+.site-header .nav-link.active {
+    color: #176A37; /* brand green on hover/active */
+}
+
+/* Mobile menu toggle lines color */
+.site-header #mobile-menu-button span {
+    background: #14552D;
+}
+
+
+/* Strong dark theme overrides when site theme is explicitly set */
+html[data-theme="dark"] .site-header,
+html[data-theme="dark"] #main-header {
+    background: rgb(var(--color-header-bg)); /* Solid dark header */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    -moz-backdrop-filter: none !important;
+    border-bottom: 1px solid rgba(var(--color-border-subtle), 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="dark"] .site-header.scrolled,
+html[data-theme="dark"] #main-header.scrolled {
+    background: rgb(var(--color-header-bg));
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Nav link colors for dark header - light text with good contrast */
+html[data-theme="dark"] .nav-link {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .nav-link:hover,
+html[data-theme="dark"] .nav-link.active {
+    color: #c9a961;
+}
+
+html[data-theme="dark"] .nav-link::after {
+    background-color: #c9a961;
+}
+
+/* Logo text and icon colors in dark theme */
+html[data-theme="dark"] .logo-title,
+html[data-theme="dark"] .logo-subtitle {
+    color: #e2e8f0;
+}
+
+/* Mobile/menu adjustments in dark mode */
+html[data-theme="dark"] .menu-toggle svg,
+html[data-theme="dark"] .mobile-menu-button .menu-line {
+    stroke: #e2e8f0;
+    background: #e2e8f0;
+}
+
+html[data-theme="dark"] .mobile-menu,
+html[data-theme="dark"] .nav-menu.mobile-visible {
+    background: rgb(var(--color-surface));
+    color: rgb(var(--color-ink));
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+html[data-theme="dark"] .mobile-nav-link {
+    color: #e2e8f0;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .mobile-nav-link:hover,
+html[data-theme="dark"] .mobile-nav-link.active {
+    color: #4ade80;
+}
+
+/* CTA contrasts in dark mode */
+html[data-theme="dark"] .cta-button {
+    background: rgb(var(--color-accent));
+    color: rgb(var(--color-surface));
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* FORCE: solid dark header with no transparency or blur */
+html[data-theme="dark"] header.site-header,
+html[data-theme="dark"] #main-header,
+html[data-theme="dark"] .site-header.scrolled,
+html[data-theme="dark"] #main-header.scrolled {
+    background: #0f172a !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    z-index: 1100 !important;
+}
+
+/* Mobile menu should use the exact same solid dark background */
+html[data-theme="dark"] .mobile-menu,
+html[data-theme="dark"] .nav-menu.mobile-visible {
+    background: #0f172a !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Theme toggle button in dark mode: use inverse styling so it remains visible against the dark header */
+/* Theme toggle button - dark mode: solid contrasting background with clear label */
+html[data-theme="dark"] .single-theme-btn {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 8px !important;
+}
+
+html[data-theme="dark"] .single-theme-btn.theme-active {
+    background: #4ade80 !important;
+    color: #0f172a !important;
+    border-color: #4ade80 !important;
+}
+
+/* Explicit header nav-link colors for light theme (non-dark) */
+html:not([data-theme="dark"]) .site-header .nav-link {
+    color: #1E293B; /* dark slate for good contrast on white header */
+}
+
+html:not([data-theme="dark"]) .site-header .nav-link:hover,
+html:not([data-theme="dark"]) .site-header .nav-link.active {
+    color: #176A37; /* brand green on hover/active */
+}
+
+/* Ensure readable text in the Projects section when in dark theme */
+html[data-theme="dark"] #projects,
+html[data-theme="dark"] section#projects,
+html[data-theme="dark"] #projects .container,
+html[data-theme="dark"] #projects .project-content {
+    color: rgb(var(--color-ink)); /* primary readable text */
+}
+
+/* Headings, paragraphs and generic text inside #projects */
+html[data-theme="dark"] #projects h1,
+html[data-theme="dark"] #projects h2,
+html[data-theme="dark"] #projects h3,
+html[data-theme="dark"] #projects h4,
+html[data-theme="dark"] #projects p,
+html[data-theme="dark"] #projects span,
+html[data-theme="dark"] #projects li,
+html[data-theme="dark"] #projects .text-text-primary,
+html[data-theme="dark"] #projects .text-primary-theme {
+    color: rgb(var(--color-ink));
+}
+
+/* Muted / secondary text should use the muted token (still readable) */
+html[data-theme="dark"] #projects .text-secondary-theme,
+html[data-theme="dark"] #projects .text-gray-600,
+html[data-theme="dark"] #projects .text-gray-700 {
+    color: rgb(var(--color-muted));
+}
+
+/* Links in projects default to readable text color, but keep accent classes intact */
+html[data-theme="dark"] #projects a {
+    color: rgb(var(--color-ink));
+    text-decoration: underline transparent;
+}
+
+/* Preserve/force accent (green) for elements intentionally using accent classes */
+html[data-theme="dark"] #projects .text-primary,
+html[data-theme="dark"] #projects .text-primary-dark,
+html[data-theme="dark"] #projects .primary,
+html[data-theme="dark"] #projects .text-brand,
+html[data-theme="dark"] #projects .text-accent {
+    color: rgb(var(--color-accent)) !important;
+}
+
+/* Special: 'Every brick tells a story' line uses gold accent for consistency */
+html[data-theme="dark"] #projects .text-primary-700 {
+    color: #c9a961 !important; /* Gold accent matching About heading */
+}
+
+/* Underline below 'Every brick' text: match gold color in dark mode */
+html[data-theme="dark"] #projects .bg-brand {
+    background-color: #c9a961 !important; /* Gold accent matching text above */
+}
+
+/* Ensure project card content inherits readable color */
+html[data-theme="dark"] #projects .card,
+html[data-theme="dark"] #projects .group,
+html[data-theme="dark"] #projects .project-content * {
+    color: inherit;
+}
+
+/* ===== About section - dark theme polish ===== */
+html[data-theme="dark"] section#about,
+html[data-theme="dark"] #about {
+    background-color: rgb(var(--color-surface));
+    color: rgb(var(--color-ink));
+}
+
+/* Make main headings and emphasized text readable but keep brand green accents */
+html[data-theme="dark"] #about h1,
+html[data-theme="dark"] #about h2,
+html[data-theme="dark"] #about h3,
+html[data-theme="dark"] #about h4,
+html[data-theme="dark"] #about .text-primary,
+html[data-theme="dark"] #about .text-primary-dark {
+    color: rgb(var(--color-accent));
+}
+
+/* Body copy and supporting text */
+html[data-theme="dark"] #about p,
+html[data-theme="dark"] #about .text-gray-700,
+html[data-theme="dark"] #about .text-gray-600,
+html[data-theme="dark"] #about .text-text-primary,
+html[data-theme="dark"] #about .text-primary-theme {
+    color: rgb(var(--color-ink));
+}
+
+/* Stat cards: premium dark mode with clear hierarchy */
+html[data-theme="dark"] #about .bg-white {
+    /* Slightly lighter dark shade for premium look */
+    background: linear-gradient(135deg, #162032 0%, rgba(255,255,255,0.03) 100%) !important;
+    color: #e6edf3 !important; /* High contrast for main text */
+    border: 1px solid rgba(255,255,255,0.08) !important; /* Subtle visible border */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2) !important; /* Layered shadow for depth */
+    padding: 1.75rem !important; /* Increased padding for better spacing */
+    border-radius: 12px !important; /* Smooth corners */
+}
+
+/* Card numbers/titles: gold accent for hierarchy (matching About Ananthaa heading) */
+html[data-theme="dark"] #about .bg-white .text-3xl,
+html[data-theme="dark"] #about .bg-white .text-3xl.font-bold,
+html[data-theme="dark"] #about .bg-white .text-primary {
+    color: #c9a961 !important; /* Gold accent matching heading */
+    font-weight: 700 !important; /* Stronger emphasis */
+}
+
+/* Card subtitles/descriptions: softer gray for secondary content */
+html[data-theme="dark"] #about .bg-white p,
+html[data-theme="dark"] #about .bg-white .text-sm,
+html[data-theme="dark"] #about .bg-white .text-base,
+html[data-theme="dark"] #about .bg-white .text-gray-600 {
+    color: #94a3b8 !important; /* Softer gray for subtitles - clear secondary hierarchy */
+    line-height: 1.6 !important; /* Better readability */
+}
+
+/* Ensure numbers and small highlights remain visible */
+html[data-theme="dark"] #about .text-primary,
+html[data-theme="dark"] #about .bg-primary\/, /* keep accent classes visible */
+html[data-theme="dark"] #about .text-primary-700,
+html[data-theme="dark"] #about .text-primary-dark {
+    color: rgb(var(--color-accent)) !important;
+}
+
+/* 'Learn More About Us' button - make it visible and high contrast on dark bg */
+html[data-theme="dark"] #about a.inline-block.bg-amber-100,
+html[data-theme="dark"] #about .learn-more-about {
+    /* keep the CTA using accent but tune shadow/border to match cards */
+    background: rgb(var(--color-accent)) !important;
+    color: rgb(var(--color-surface)) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.35) !important;
+}
+
+html[data-theme="dark"] #about a.inline-block.bg-amber-100:hover,
+html[data-theme="dark"] #about .learn-more-about:hover {
+    filter: brightness(0.98);
+}
+
+/* Small adjustments so decorative elements don't clash */
+html[data-theme="dark"] #about .h-px,
+html[data-theme="dark"] #about .bg-gray-100 {
+    background-color: rgba(255,255,255,0.06) !important;
+}
+
+/* ========== Gallery Section Dark Theme ========== */
+html[data-theme="dark"] section#gallery,
+html[data-theme="dark"] #gallery {
+    background-color: rgb(var(--color-surface));
+    color: rgb(var(--color-ink));
+}
+
+/* Gallery heading: use gold accent to match About section */
+html[data-theme="dark"] #gallery h2,
+html[data-theme="dark"] #gallery .text-primary-dark {
+    color: #c9a961 !important; /* Gold accent */
+}
+
+/* Gallery subtext: clean readable white */
+html[data-theme="dark"] #gallery p,
+html[data-theme="dark"] #gallery .text-gray-600 {
+    color: #ffffff !important;
+}
+
+/* ========== Contact Section Dark Theme ========== */
+html[data-theme="dark"] section#contact,
+html[data-theme="dark"] #contact {
+    background-color: rgb(var(--color-surface));
+    color: rgb(var(--color-ink));
+}
+
+/* Contact heading: use gold accent to match About section */
+html[data-theme="dark"] #contact h2,
+html[data-theme="dark"] #contact .text-primary-theme {
+    color: #c9a961 !important; /* Gold accent */
+}
+
+/* Underline beneath heading: gold instead of green */
+html[data-theme="dark"] #contact .bg-primary {
+    background-color: #c9a961 !important;
+}
+
+/* Contact subtext (intro paragraph): clean readable white on dark background */
+html[data-theme="dark"] #contact > .max-w-6xl > .text-center p,
+html[data-theme="dark"] #contact .text-secondary-theme {
+    color: #ffffff !important;
+}
+
+/* Contact cards keep white background in dark mode */
+html[data-theme="dark"] #contact .contact-card,
+html[data-theme="dark"] #contact .bg-white {
+    background-color: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Text inside white cards: use dark readable colors */
+html[data-theme="dark"] #contact .contact-card h3,
+html[data-theme="dark"] #contact .contact-card .text-gray-900 {
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] #contact .contact-card p,
+html[data-theme="dark"] #contact .contact-card .text-gray-600 {
+    color: #4b5563 !important;
+}
+
+/* Contact links (phone, email) inside cards: dark color on white background */
+html[data-theme="dark"] #contact .contact-card a[href^="tel"],
+html[data-theme="dark"] #contact .contact-card a[href^="mailto"] {
+    color: #4b5563 !important;
+}
+
+html[data-theme="dark"] #contact .contact-card a[href^="tel"]:hover,
+html[data-theme="dark"] #contact .contact-card a[href^="mailto"]:hover {
+    color: #111827 !important;
+}
+
+/* Icon circles changed to gold with white icon */
+html[data-theme="dark"] #contact .icon-circle {
+    background: linear-gradient(135deg, #c9a961 0%, #b8985a 100%) !important;
+}
+
+html[data-theme="dark"] #contact .icon-circle svg {
+    color: white !important;
+}
+
+/* Working Hours card text: dark colors on white card */
+html[data-theme="dark"] #contact .contact-card ul li span {
+    color: #4b5563 !important;
+}
+
+html[data-theme="dark"] #contact .contact-card ul li span.font-medium {
+    color: #111827 !important;
+}
+
+/* Working hours layout: single line for Monday-Friday */
+html[data-theme="dark"] #contact .contact-card ul li {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+/* Move day labels (Monday-Friday, Saturday, Sunday) to the left */
+html[data-theme="dark"] #contact .contact-card ul li span:first-child {
+    margin-left: -8px;
+}
+
+/* Send Message button: gold background instead of green */
+html[data-theme="dark"] #contact .bg-primary.submit-button,
+html[data-theme="dark"] #contact button[type="submit"].bg-primary {
+    background-color: #c9a961 !important;
+    color: #ffffff !important; /* Keep text white */
+}
+
+html[data-theme="dark"] #contact .bg-primary.submit-button:hover,
+html[data-theme="dark"] #contact button[type="submit"].bg-primary:hover {
+    background-color: #b8985a !important; /* Slightly darker gold for hover */
+}
+
+/* Terms & Conditions / Privacy Policy text and links */
+html[data-theme="dark"] #contact label[for="home-terms"],
+html[data-theme="dark"] #contact .text-gray-700 {
+    color: #e6edf3 !important;
+}
+
+html[data-theme="dark"] #contact label[for="home-terms"] a,
+html[data-theme="dark"] #contact .text-primary.hover\:underline {
+    color: #ffffff !important;
+}
+
+/* ========== SIMPLE HERO SECTION ========== */
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url("../images/main.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Hero Content - Centered with Blurred Background */
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 700px;
+    padding: 3.5rem 2.5rem;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    border-radius: 1.2rem;
+    color: #ffffff;
+    pointer-events: auto;
+    
+    /* Fade in and slide up animation */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUpFadeIn 0.8s ease-out 0.3s forwards;
+}
+
+/* Slide Up + Fade In Animation */
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Title */
+.hero-content h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 1.5rem 0;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: -1px;
+}
+
+/* Hero Paragraph */
+.hero-content p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0 0 2.5rem 0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    opacity: 0.95;
+}
+
+/* Hero Button */
+.hero-btn {
+    display: inline-block;
+    padding: 14px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(135deg, #1B6E38 0%, #4FAF64 100%);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 8px 25px rgba(27, 110, 56, 0.3);
+    text-transform: none;
+    letter-spacing: 0.5px;
+}
+
+.hero-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(27, 110, 56, 0.5);
+    background: linear-gradient(135deg, #14552D 0%, #1B6E38 100%);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(27, 110, 56, 0.3);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .hero {
+        height: 85vh;
+        min-height: 600px;
+    }
+
+    .hero-content {
+        padding: 2.5rem 1.5rem;
+        border-radius: 1rem;
+        max-width: 90%;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-btn {
+        padding: 12px 32px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        height: 75vh;
+        min-height: 500px;
+    }
+
+    .hero-content {
+        padding: 2rem 1rem;
+        border-radius: 0.8rem;
+        max-width: 95%;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-btn {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Dark Theme Support */
+html[data-theme="dark"] .hero-content {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+}
+
+html[data-theme="dark"] .hero-btn {
+    background: linear-gradient(135deg, #4FAF64 0%, #5ec076 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+html[data-theme="dark"] .hero-btn:hover {
+    background: linear-gradient(135deg, #1B6E38 0%, #14552D 100%);
+    box-shadow: 0 12px 35px rgba(79, 175, 100, 0.4);
+}
+
+/* ========== PROJECTS HERO IMAGE WITH FADE ========== */
+/* Removed - fade effect now applied to main hero section */
+
+/* ========== PROJECT VIDEO STYLING ========== */
+
+.aspect-w-16.aspect-h-9 video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+video.w-full.h-full.rounded-2xl {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    object-fit: contain;
+}
+
+/* Ensure videos in project cards have proper aspect ratio */
+.lg\:col-span-7 video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background-color: #000000;
+}
+
+/* Project card image styling */
+.lg\:col-span-5 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Center video container in its grid area */
+.lg\:col-span-7 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* =========================================
+   MOBILE MENU STYLES (Paste into header.css)
+   ========================================= */
+
+/* The dark overlay behind the menu */
+#mobile-menu-panel {
+    z-index: 99999; /* Force it above everything */
+}
+
+/* The white sliding panel */
+.mobile-menu-sheet {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 75%;
+    max-width: 300px;
+    background-color: #ffffff; /* White background */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+    transform: translateX(0); /* Ensure it's visible when class is active */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Links inside the menu */
+.mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.mobile-menu-links a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1B6E38; /* Green */
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Close Button */
+.close-mobile-menu-btn {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Dark Mode Overrides (Optional) */
+html[data-theme="dark"] .mobile-menu-sheet {
+    background-color: #1f2937;
+    border-left: 1px solid #374151;
+}
+html[data-theme="dark"] .mobile-menu-links a {
+    color: #e5e7eb;
+    border-color: #374151;
+}

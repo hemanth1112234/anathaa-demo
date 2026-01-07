@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="200" y="160" width="112" height="200" rx="8" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M200 200H312" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M200 240H312" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M200 280H312" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Sewage treatment with hexagonal pattern -->
+  <path d="M236 210L244 206L252 210L252 218L244 222L236 218Z" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M260 250L268 246L276 250L276 258L268 262L260 258Z" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M236 290L244 286L252 290L252 298L244 302L236 298Z" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M260 290L268 286L276 290L276 298L268 302L260 298Z" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Waste outlet pipes -->
+  <path d="M236 320V340" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M276 320V340" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M220 340L292 340" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M236 340V360" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M276 340V360" stroke="#0A5F2A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

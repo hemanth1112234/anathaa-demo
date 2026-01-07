@@ -1,0 +1,40 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blueprint paper outline -->
+  <rect x="32" y="32" width="448" height="448" rx="8" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Main building outline -->
+  <rect x="140" y="100" width="232" height="312" rx="4" stroke="#FFFFFF" stroke-width="3"/>
+  
+  <!-- Building floors -->
+  <line x1="140" y1="178" x2="372" y2="178" stroke="#FFFFFF" stroke-width="2"/>
+  <line x1="140" y1="256" x2="372" y2="256" stroke="#FFFFFF" stroke-width="2"/>
+  <line x1="140" y1="334" x2="372" y2="334" stroke="#FFFFFF" stroke-width="2"/>
+  
+  <!-- Simplified windows (3 per floor) -->
+  <!-- Floor 1 windows -->
+  <rect x="170" y="120" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  <rect x="238" y="120" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  <rect x="306" y="120" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  
+  <!-- Floor 2 windows -->
+  <rect x="170" y="198" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  <rect x="238" y="198" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  <rect x="306" y="198" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  
+  <!-- Floor 3 windows -->
+  <rect x="170" y="276" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  <rect x="238" y="276" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  <rect x="306" y="276" width="36" height="36" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  
+  <!-- Building entrance -->
+  <rect x="238" y="354" width="36" height="58" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  
+  <!-- Roof detail -->
+  <rect x="124" y="84" width="264" height="16" rx="2" stroke="#FFFFFF" stroke-width="2"/>
+  
+  <!-- Simple measurement indicator -->
+  <line x1="100" y1="256" x2="140" y2="256" stroke="#FFFFFF" stroke-width="1.5" opacity="0.5"/>
+  <line x1="372" y1="256" x2="412" y2="256" stroke="#FFFFFF" stroke-width="1.5" opacity="0.5"/>
+  <line x1="100" y1="248" x2="100" y2="264" stroke="#FFFFFF" stroke-width="1.5" opacity="0.5"/>
+  <line x1="412" y1="248" x2="412" y2="264" stroke="#FFFFFF" stroke-width="1.5" opacity="0.5"/>
+</svg>

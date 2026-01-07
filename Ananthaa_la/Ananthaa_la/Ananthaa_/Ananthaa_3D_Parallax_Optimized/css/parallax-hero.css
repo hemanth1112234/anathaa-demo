@@ -1,0 +1,18 @@
+/* Parallax Hero Section */
+.hero {
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/main.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  min-height: 420px; /* Keep existing min-height or adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}

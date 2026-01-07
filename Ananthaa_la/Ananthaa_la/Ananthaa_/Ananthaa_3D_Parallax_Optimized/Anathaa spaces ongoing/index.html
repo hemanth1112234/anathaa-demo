@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANANTHAA | LUXURY AGENCY</title>
+    
+    <!-- Prevent theme flash by applying theme before page renders -->
+    <script>
+        (function() {
+            // Check localStorage or use system preference
+            let theme = localStorage.getItem('theme');
+            if (!theme) {
+                // If no saved preference, check system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    theme = 'light';
+                } else {
+                    theme = 'dark';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-loading">
+
+    <div class="preloader">
+        <div class="loader-wrap">
+            <span class="loader-text">ANANTHAA</span>
+            <div class="loader-bar"><div class="bar-fill"></div></div>
+        </div>
+    </div>
+
+    <nav class="agency-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="images/Ananthaa-Logo-Final.png" alt="ANANTHAA" class="logo-original">
+            </div>
+        </div>
+        
+        <button class="menu-toggle">
+            <span class="bar top"></span>
+            <span class="bar middle"></span>
+            <span class="bar bottom"></span>
+        </button>
+
+        <div class="nav-right">
+            <a href="../index.html" class="link-hover">Home</a>
+            <a href="#overview" class="link-hover">Overview</a>
+            <a href="#location" class="link-hover">Location</a>
+            <a href="#masterplan" class="link-hover">Master Plan</a>
+            
+            <button class="theme-toggle-btn desktop-theme-btn" id="theme-toggle" aria-label="Toggle Theme">
+                <svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+
+            <button class="btn-magnetic" data-booking-trigger>
+                <span>Book Visit</span>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="../index.html" class="menu-link">Home</a>
+            <a href="#overview" class="menu-link">Overview</a>
+            <a href="#location" class="menu-link">Location</a>
+            <a href="#masterplan" class="menu-link">Master Plan</a>
+            <a href="#" class="menu-link cta-link" data-booking-trigger>Book Visit</a>
+            
+            <div class="mobile-theme-control">
+                <div class="theme-status-text">Mode: <span id="mobile-theme-label">Dark</span></div>
+                <button class="theme-toggle-btn mobile-theme-btn" aria-label="Toggle Theme">
+                    <svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <header class="hero-agency">
+                <div class="hero-container">
+                    <h1>
+                        <div class="line"><span>The Future</span></div>
+                        <div class="line"><span>is here</span></div>
+                        <div class="line"><span class="outline">NEOCITY</span></div>
+                    </h1>
+                </div>
+                
+                <div class="hero-footer">
+                    <p>Sadashivpet, Telangana | 325 Acres</p>
+                    <div class="scroll-icon">↓</div>
+                </div>
+
+                <div class="hero-bg">
+                    <img src="images/education1.jpg" alt="Hero Background" data-speed="0.5">
+                </div>
+            </header>
+
+            <div class="marquee-section">
+                <div class="marquee-inner">
+                    <div class="marquee-part">
+                    325 ACRES EXTENT — DTCP APPROVED — 30,000 SFT CLUBHOUSE — SPOT REGISTRATION — 100% VASTU COMPLIANT — 
+                    </div>
+                    <div class="marquee-part">
+                    325 ACRES EXTENT — DTCP APPROVED — 30,000 SFT CLUBHOUSE — SPOT REGISTRATION — 100% VASTU COMPLIANT — 
+                    </div>
+                </div>
+            </div>
+
+            <section id="overview" class="agency-intro">
+                <div class="container">
+                    <div class="intro-grid reveal-el">
+                        
+                        <div class="vision-image-wrapper">
+                            <img src="images/education3.jpg" alt="Vision Icon" class="vision-icon">
+                        </div>
+
+                        <div class="intro-text">
+                            <h2>A Curated 325-Acre<br>Gated Ecosystem.</h2>
+                            <p>Structure, greenery, and legacy combined. Defining the future of living in Sadashivpet, with integrated academic zones and robust security.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="specs-section">
+                <div class="container">
+                    <div class="label-row reveal-el">
+                        <span>Features</span>
+                    </div>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-card reveal-el">
+                            <div class="spec-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            </div>
+                            <h4>Secure</h4>
+                            <ul>
+                                <li>24/7 Security surveillance</li>
+                                <li>Fully gated compound wall</li>
+                                <li>Smart entry systems</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="spec-card reveal-el">
+                            <div class="spec-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </div>
+                            <h4>Community</h4>
+                            <ul>
+                                <li>30,000 Sft Clubhouse</li>
+                                <li>10+ Themed parks</li>
+                                <li>Community interaction zones</li>
+                            </ul>
+                        </div>
+
+                         <div class="spec-card reveal-el">
+                            <div class="spec-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <h4>Legal</h4>
+                            <ul>
+                                <li>DTCP Approved Layout</li>
+                                <li>100% Vastu Compliant</li>
+                                <li>Spot Registration Available</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="location" class="bento-section">
+                <div class="container">
+                    <div class="label-row reveal-el">
+                        <span>Location & Connectivity</span>
+                    </div>
+                    
+                    <div class="bento-grid">
+                        <div class="bento-box box-large-img reveal-el">
+                            <img src="images/education2.jpg" alt="Location Image">
+                            <div class="box-overlay">
+                                <h3>Sadashivpet, NH-65</h3>
+                                <p>Mumbai Highway Connectivity</p>
+                            </div>
+                        </div>
+
+                        <div class="bento-box box-accent reveal-el">
+                            <div class="icon-stat">🎓</div>
+                            <h3>30 Mins Drive</h3>
+                            <p>Access to Woxsen University and other educational hubs.</p>
+                        </div>
+
+                        <div class="bento-box box-location reveal-el">
+                            <div class="location-icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </div>
+                            <h3>View On Map</h3>
+                            <a href="https://maps.app.goo.gl/vd6mVjMimoyCaRmv8" target="_blank" class="arrow-btn">↗</a>
+                        </div>
+
+                        <div class="bento-box box-wide reveal-el">
+                            <div class="content">
+                                <h3>Industrial Proximity</h3>
+                                <p>Strategically located near NIMZ Zaheerabad, ensuring future growth and investment potential.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="masterplan" class="agency-plan-viewer">
+                <div class="container">
+                    <div class="label-row reveal-el">
+                        <span>Masterfully Planned Plots</span>
+                    </div>
+                    
+                    <div class="plan-tabs-wrapper reveal-el">
+                        <button class="plan-tab active" data-target="master">Master Plan</button>
+                        <button class="plan-tab" data-target="phase1">Phase 1</button>
+                        <button class="plan-tab" data-target="phase2">Phase 2</button>
+                    </div>
+
+                    <div class="plan-viewer-container reveal-el">
+                        <div id="master" class="plan-content active">
+                            <img src="images/master-plan.jpg" alt="Master Plan Layout" class="lightbox-trigger">
+                        </div>
+                        <div id="phase1" class="plan-content">
+                            <img src="images/phase-1.jpg" alt="Phase 1 Layout" class="lightbox-trigger">
+                        </div>
+                        <div id="phase2" class="plan-content">
+                            <img src="images/phase-2.jpg" alt="Phase 2 Layout" class="lightbox-trigger">
+                        </div>
+                        
+                        <a href="PDFs/NEOCITY-E-Brochure.pdf" target="_blank" class="brochure-link">
+                            DOWNLOAD OFFICIAL BROCHURE
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="gallery" class="gallery-marquee-section">
+                <div class="container">
+                    <div class="label-row reveal-el">
+                        <span>Project Gallery</span>
+                    </div>
+                </div>
+
+                <div class="gallery-wrapper reveal-el">
+                    <div class="gallery-marquee-inner">
+                        <div class="gallery-marquee-track">
+                            <img src="images/plan1.png" alt="Gallery Image 1" class="gallery-img lightbox-trigger">
+                            <img src="images/plan2.png" alt="Gallery Image 2" class="gallery-img lightbox-trigger">
+                            <img src="images/plan3.png" alt="Gallery Image 3" class="gallery-img lightbox-trigger">
+                            <img src="images/plan4.png" alt="Gallery Image 4" class="gallery-img lightbox-trigger">
+                            <img src="images/plan5.png" alt="Gallery Image 5" class="gallery-img lightbox-trigger">
+                            <img src="images/plan6.png" alt="Gallery Image 6" class="gallery-img lightbox-trigger">
+                            
+                            <img src="images/plan1.png" alt="Gallery Image 1" class="gallery-img lightbox-trigger">
+                            <img src="images/plan2.png" alt="Gallery Image 2" class="gallery-img lightbox-trigger">
+                            <img src="images/plan3.png" alt="Gallery Image 3" class="gallery-img lightbox-trigger">
+                            <img src="images/plan4.png" alt="Gallery Image 4" class="gallery-img lightbox-trigger">
+                            <img src="images/plan5.png" alt="Gallery Image 5" class="gallery-img lightbox-trigger">
+                            <img src="images/plan6.png" alt="Gallery Image 6" class="gallery-img lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="video-preview-agency">
+                <div class="container">
+                    <div class="label-row reveal-el">
+                        <span>Project Video</span>
+                    </div>
+                </div>
+
+                <div class="video-container reveal-el">
+                    <img src="images/10.png" alt="Video Cover" class="cover-img"> 
+                    <div class="play-circle" id="play-video-btn-agency">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <footer id="contact" class="agency-footer">
+                <div class="container">
+                    <div class="footer-header">
+                        <h2>Start Living.</h2>
+                        <a href="mailto:Info@ananthaa.co.in" class="email-link">Info@ananthaa.co.in</a>
+                    </div>
+                    <div class="footer-bottom">
+                        <div class="col">
+                            <span>Sales Office</span>
+                            <a href="https://www.google.com/maps/dir//Ananthaa+Spaces+First+Floor,+MVS+Entrada+Plot,+1057,+Road+No.+45+Jubilee+Hills,+Nandagiri+Hills,+Jubilee+Hills+Hyderabad,+Telangana+500033/@17.4268672,78.4063534,10z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bcb916a0155faf3:0x46cf48cfd9b041dc!2m2!1d78.4063534!2d17.4268672?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" target="_blank" class="link-hover" style="display: block; margin-top: 8px;">
+                                <p style="margin: 0;">First Floor, MVS Entrada, Plot, 1057</p> 
+                                <p style="margin: 0;">Cable Bridge Rd, Nandagiri Hills, Road No-45</p>
+                                <p style="margin: 0;">Jubilee Hills, Hyderabad, Telangana 500032</p>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <span>Call</span>
+                            <a href="tel:+919538123123">+91 9538 123 123</a>
+                        </div>
+                        <div class="col">
+                            <span>Information</span>
+                            <a href="PDFs/NEOCITY-E-Brochure.pdf" target="_blank" class="link-hover">E-Brochure</a>
+                        </div>
+                    </div>
+                    <div class="copyright">
+                        © 2025 Ananthaa Spaces.
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </main>
+
+    <div id="video-modal" class="modal-agency">
+        <button id="close-video-agency" class="modal-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        <div class="modal-content-wrap">
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/nYE1FcMlKco?enablejsapi=1" title="Neocity Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <div id="lightbox" class="fixed-lightbox">
+        <div class="lightbox-close-btn-wrapper">
+            <button id="close-lightbox" class="lightbox-close-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <div id="lightbox-controls" class="lightbox-controls-bar">
+            <button id="zoom-out" class="control-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+            <button id="zoom-reset" class="control-btn text-label">Reset</button>
+            <button id="zoom-in" class="control-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+        </div>
+        <div id="lightbox-container" class="lightbox-content-container">
+            <img id="lightbox-img" src="" class="lightbox-image" draggable="false">
+        </div>
+    </div>
+
+  <div class="booking-modal-overlay" id="bookingModalOverlay">
+    <div class="booking-modal">
+      <div class="booking-modal-header">
+        <h2 class="booking-modal-title">Schedule a Site Visit</h2>
+        <button class="booking-modal-close" id="closeBookingModal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div id="bookingForm">
+        <div class="booking-container">
+          <label class="booking-label">Select a Date</label>
+          <div class="date-scroll-wrapper">
+            <div class="date-grid" id="dateGrid"></div>
+          </div>
+
+          <label class="booking-label" style="margin-top: 1.5rem;">Select a Time Slot</label>
+          <div class="slot-grid" id="slotGrid">
+            <div class="empty-state">Please select a date first</div>
+          </div>
+
+          <div class="booking-form-group">
+            <label class="booking-form-label">Full Name *</label>
+            <input type="text" id="visitorName" class="booking-form-input" placeholder="Your name" required>
+          </div>
+
+          <div class="booking-form-group">
+            <label class="booking-form-label">Email Address *</label>
+            <input type="email" id="visitorEmail" class="booking-form-input" placeholder="your@email.com" required>
+          </div>
+
+          <div class="booking-form-group">
+            <label class="booking-form-label">Phone Number *</label>
+            <input type="tel" id="visitorPhone" class="booking-form-input" placeholder="+91 XXXXX XXXXX" required>
+          </div>
+
+          <input type="hidden" id="selectedDate">
+          <input type="hidden" id="selectedTime">
+
+          <div class="booking-actions">
+            <button type="button" class="booking-btn booking-btn-secondary" id="cancelBooking">Cancel</button>
+            <button type="button" class="booking-btn booking-btn-primary" id="submitBooking">Confirm Booking</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="bookingSuccess" style="display: none;">
+        <div class="booking-success">
+          <div class="booking-success-icon">✓</div>
+          <div class="booking-success-title">Booking Confirmed!</div>
+          <div class="booking-success-text">
+            <p>Thank you for scheduling your site visit. We look forward to welcoming you!</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">Our team will call you shortly to confirm the details.</p>
+          </div>
+          <button type="button" class="booking-btn booking-btn-primary" style="width: 100%; margin-top: 1.5rem;" id="closeSuccess">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .booking-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .booking-modal-overlay.active {
+        display: flex;
+    }
+
+    .booking-modal {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .booking-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #F0F0F0;
+    }
+
+    .booking-modal-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0;
+    }
+
+    .booking-modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+        padding: 0;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s ease;
+    }
+
+    .booking-modal-close:hover {
+        color: #165A2E;
+    }
+
+    .booking-container {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .booking-label {
+        display: block;
+        font-family: 'Playfair Display', serif;
+        color: #1A1A1A;
+        font-size: 1.1rem;
+        margin: 1.5rem 0 0.75rem 0;
+        font-weight: 600;
+    }
+
+    .booking-label:first-child {
+        margin-top: 0;
+    }
+
+    .date-scroll-wrapper {
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 0.5rem;
+    }
+
+    .date-scroll-wrapper::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .date-scroll-wrapper::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .date-scroll-wrapper::-webkit-scrollbar-thumb {
+        background: #D4A95F;
+        border-radius: 10px;
+    }
+
+    .date-grid {
+        display: flex;
+        gap: 12px;
+        padding-right: 1rem;
+    }
+
+    .date-card {
+        min-width: 80px;
+        padding: 12px 8px;
+        border: 2px solid #E0E0E0;
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        background: #FBFAF8;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    .date-card:hover {
+        border-color: #D4A95F;
+        transform: translateY(-2px);
+    }
+
+    .date-card.active {
+        background: #165A2E;
+        border-color: #165A2E;
+        color: white;
+    }
+
+    .date-card.holiday {
+        opacity: 0.5;
+        background-color: #e0e0e0;
+        cursor: not-allowed;
+        border-color: transparent;
+    }
+
+    .date-card.holiday:hover {
+        transform: none;
+        border-color: transparent;
+    }
+
+    .date-day {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+
+    .date-num {
+        font-size: 1.25rem;
+        font-weight: 700;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .slot-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 1.5rem;
+    }
+
+    .time-slot {
+        padding: 12px;
+        text-align: center;
+        border: 2px solid #E0E0E0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        background: white;
+        font-weight: 500;
+    }
+
+    .time-slot:hover:not(.disabled) {
+        border-color: #D4A95F;
+        color: #D4A95F;
+    }
+
+    .time-slot.active {
+        background: #D4A95F;
+        color: white;
+        border-color: #D4A95F;
+        font-weight: 600;
+    }
+
+    .time-slot.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        background: #f5f5f5;
+        border-color: #e0e0e0;
+    }
+
+    .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: #999;
+        font-style: italic;
+        padding: 1.5rem;
+    }
+
+    .empty-state.error {
+        color: #d32f2f;
+        background-color: #ffebee;
+        border: 1px solid #ffcdd2;
+        border-radius: 8px;
+        font-style: normal;
+    }
+
+    .booking-form-group {
+        margin-bottom: 1rem;
+    }
+
+    .booking-form-label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.5rem;
+    }
+
+    .booking-form-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #E0E0E0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: border-color 0.2s ease;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .booking-form-input:focus {
+        outline: none;
+        border-color: #165A2E;
+        box-shadow: 0 0 0 3px rgba(22, 90, 46, 0.1);
+    }
+
+    .booking-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .booking-btn {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+    }
+
+    .booking-btn-primary {
+        background: #165A2E;
+        color: white;
+    }
+
+    .booking-btn-primary:hover {
+        background: #0d3f1f;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(22, 90, 46, 0.2);
+    }
+
+    .booking-btn-secondary {
+        background: #f0f0f0;
+        color: #1a1a1a;
+    }
+
+    .booking-btn-secondary:hover {
+        background: #e0e0e0;
+    }
+
+    .booking-success {
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .booking-success-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .booking-success-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #165A2E;
+        margin-bottom: 0.5rem;
+    }
+
+    .booking-success-text {
+        color: #666;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+        .booking-modal {
+            width: 95%;
+            padding: 1.5rem;
+        }
+
+        .booking-modal-title {
+            font-size: 1.5rem;
+        }
+
+        .slot-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    html[data-theme="dark"] .booking-modal {
+        background: rgb(var(--color-surface, 30, 41, 59));
+        color: rgb(var(--color-ink, 226, 232, 240));
+    }
+
+    html[data-theme="dark"] .booking-modal-title {
+        color: rgb(var(--color-ink, 226, 232, 240));
+    }
+
+    html[data-theme="dark"] .booking-modal-header {
+        border-bottom-color: rgba(201, 169, 97, 0.2);
+    }
+
+    html[data-theme="dark"] .booking-modal-close {
+        color: rgba(226, 232, 240, 0.7);
+    }
+
+    html[data-theme="dark"] .booking-modal-close:hover {
+        color: #c9a961;
+    }
+
+    html[data-theme="dark"] .booking-label {
+        color: rgb(var(--color-ink, 226, 232, 240)) !important;
+        font-weight: 600 !important;
+    }
+
+    html[data-theme="dark"] .booking-form-label {
+        color: rgb(var(--color-ink, 226, 232, 240)) !important;
+        font-weight: 500 !important;
+    }
+
+    html[data-theme="dark"] .date-day,
+    html[data-theme="dark"] .date-num {
+        color: rgb(var(--color-ink, 226, 232, 240));
+    }
+
+    html[data-theme="dark"] .date-card {
+        background: rgb(var(--color-surface, 30, 41, 59));
+        border-color: rgba(201, 169, 97, 0.3);
+        color: rgb(var(--color-ink, 226, 232, 240));
+    }
+
+    html[data-theme="dark"] .date-card:hover {
+        border-color: #c9a961;
+    }
+
+    html[data-theme="dark"] .date-card.active {
+        background: #165A2E;
+        border-color: #165A2E;
+    }
+
+    html[data-theme="dark"] .date-card.holiday {
+        opacity: 0.5;
+        background-color: rgba(128, 128, 128, 0.3);
+        border-color: transparent;
+    }
+
+    html[data-theme="dark"] .time-slot {
+        background: rgb(var(--color-surface-alt, 51, 65, 85));
+        border-color: rgba(201, 169, 97, 0.3);
+        color: rgb(var(--color-ink, 226, 232, 240));
+    }
+
+    html[data-theme="dark"] .time-slot:hover:not(.disabled) {
+        border-color: #c9a961;
+        color: #c9a961;
+    }
+
+    html[data-theme="dark"] .time-slot.active {
+        background: #c9a961;
+        border-color: #c9a961;
+        color: #ffffff;
+    }
+
+    html[data-theme="dark"] .time-slot.disabled {
+        opacity: 0.4;
+        background: rgba(100, 100, 100, 0.2);
+        border-color: rgba(100, 100, 100, 0.3);
+    }
+
+    html[data-theme="dark"] .empty-state {
+        color: rgba(226, 232, 240, 0.6);
+    }
+
+    html[data-theme="dark"] .empty-state.error {
+        color: #ff6b6b;
+        background-color: rgba(211, 47, 47, 0.2);
+        border-color: rgba(211, 47, 47, 0.4);
+    }
+
+    html[data-theme="dark"] .booking-form-input,
+    html[data-theme="dark"] .booking-form-input:focus {
+        background: rgb(var(--color-surface-alt, 51, 65, 85));
+        border-color: rgba(201, 169, 97, 0.3);
+        color: rgb(var(--color-ink, 226, 232, 240));
+    }
+
+    html[data-theme="dark"] .booking-form-input::placeholder {
+        color: rgba(226, 232, 240, 0.5);
+    }
+  </style>
+
+  <script>
+    // Initialize booking system on ongoing project
+    function initBookingSystem() {
+      const overlay = document.getElementById('bookingModalOverlay');
+      const modal = document.querySelector('.booking-modal');
+      const closeBtn = document.getElementById('closeBookingModal');
+      const cancelBtn = document.getElementById('cancelBooking');
+      const submitBtn = document.getElementById('submitBooking');
+      const bookingForm = document.getElementById('bookingForm');
+      const bookingSuccess = document.getElementById('bookingSuccess');
+      const dateGrid = document.getElementById('dateGrid');
+      const slotGrid = document.getElementById('slotGrid');
+      let selectedDateValue = null;
+
+      // Open modal on button click
+      document.querySelectorAll('[data-booking-trigger]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          overlay.classList.add('active');
+          bookingForm.style.display = 'block';
+          bookingSuccess.style.display = 'none';
+        });
+      });
+
+      // Close modal
+      const closeModal = () => {
+        overlay.classList.remove('active');
+        resetForm();
+      };
+
+      closeBtn.addEventListener('click', closeModal);
+      cancelBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+      });
+
+      // Generate 7-day date picker
+      function generateDates() {
+        dateGrid.innerHTML = '';
+        const today = new Date();
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        for (let i = 0; i < 7; i++) {
+          const date = new Date(today);
+          date.setDate(today.getDate() + i);
+          const dayIndex = date.getDay();
+          const isWeekend = (dayIndex === 0 || dayIndex === 6);
+          
+          const card = document.createElement('div');
+          card.className = `date-card ${isWeekend ? 'holiday' : ''}`;
+          card.innerHTML = `
+            <div class="date-day">${days[dayIndex]}</div>
+            <div class="date-num">${date.getDate()}</div>
+          `;
+
+          card.addEventListener('click', () => {
+            if (!isWeekend) {
+              document.querySelectorAll('.date-card').forEach(c => c.classList.remove('active'));
+              card.classList.add('active');
+              selectedDateValue = date.toISOString().split('T')[0];
+              document.getElementById('selectedDate').value = selectedDateValue;
+              generateSlots(date);
+            } else {
+              showHolidayMessage();
+            }
+          });
+
+          dateGrid.appendChild(card);
+        }
+      }
+
+      // Generate time slots
+      function generateSlots(date) {
+        slotGrid.innerHTML = '';
+        const slots = ['10:00 AM', '11:00 AM', '12:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
+
+        slots.forEach(slot => {
+          const slotBtn = document.createElement('button');
+          slotBtn.className = 'time-slot';
+          slotBtn.type = 'button';
+          slotBtn.textContent = slot;
+
+          slotBtn.addEventListener('click', () => {
+            document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
+            slotBtn.classList.add('active');
+            document.getElementById('selectedTime').value = slot;
+          });
+
+          slotGrid.appendChild(slotBtn);
+        });
+      }
+
+      // Show holiday message
+      function showHolidayMessage() {
+        slotGrid.innerHTML = `
+          <div class="empty-state error">
+            <i class="fas fa-calendar-times" style="margin-right:8px;"></i>
+            Our office is closed on Weekends. <br/>Please select a weekday.
+          </div>
+        `;
+      }
+
+      // Form submission
+      submitBtn.addEventListener('click', () => {
+        const name = document.getElementById('visitorName').value.trim();
+        const email = document.getElementById('visitorEmail').value.trim();
+        const phone = document.getElementById('visitorPhone').value.trim();
+        const date = document.getElementById('selectedDate').value;
+        const time = document.getElementById('selectedTime').value;
+
+        if (!name || !email || !phone || !date || !time) {
+          alert('Please fill in all fields');
+          return;
+        }
+
+        if (!email.includes('@')) {
+          alert('Please enter a valid email address');
+          return;
+        }
+
+        // Log booking data
+        const bookingData = { name, email, phone, date, time };
+        console.log('Booking submitted:', bookingData);
+
+        // Show success message
+        bookingForm.style.display = 'none';
+        bookingSuccess.style.display = 'block';
+      });
+
+      // Close success and reset
+      document.getElementById('closeSuccess').addEventListener('click', closeModal);
+
+      function resetForm() {
+        document.getElementById('visitorName').value = '';
+        document.getElementById('visitorEmail').value = '';
+        document.getElementById('visitorPhone').value = '';
+        document.getElementById('selectedDate').value = '';
+        document.getElementById('selectedTime').value = '';
+        slotGrid.innerHTML = '<div class="empty-state">Please select a date first</div>';
+      }
+
+      // Initialize dates on load
+      generateDates();
+    }
+
+    // Initialize on DOM ready
+    document.addEventListener('DOMContentLoaded', initBookingSystem);
+  </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+    <script src="../js/contact-form.js"></script>
+</body>
+</html>

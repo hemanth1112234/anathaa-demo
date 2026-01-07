@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Ananthaa Spaces</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+    <link rel="stylesheet" href="./css/design-system.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link href="./css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/theme-dark.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#1B6E38', light: '#4FAF64', dark: '#14552D' },
+                        accent: { DEFAULT: '#F4C400', dark: '#E0B000' },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+       /* =========================================
+          STRICT MENU VISIBILITY & COLOR RULES
+          ========================================= */
+
+       /* --- 1. DESKTOP MENU (Links) --- */
+       /* Default: HIDDEN on Mobile/Tablet (iPad) */
+       .desktop-nav-container {
+           display: none !important;
+       }
+
+       /* On Large Screens (Laptop/Desktop > 1024px): SHOW IT */
+       @media (min-width: 1200px) {
+           .desktop-nav-container {
+               display: flex !important;
+               align-items: center;
+               gap: 40px; /* Space between links */
+           }
+           
+           /* Hide the Mobile Hamburger Button on Desktop */
+           #mobile-menu-btn {
+               display: none !important;
+           }
+       }
+
+       /* --- 2. LINK STYLING (Ensure they are visible!) --- */
+       .desktop-nav-container a.nav-link {
+           color: #1B6E38 !important; /* Force Brand Green color */
+           font-weight: 600;
+           font-size: 16px;
+           text-decoration: none;
+           padding-bottom: 4px;
+           border-bottom: 2px solid transparent;
+           transition: all 0.3s ease;
+       }
+
+       /* Hover Effect */
+       .desktop-nav-container a.nav-link:hover,
+       .desktop-nav-container a.nav-link.active {
+           color: #1B6E38 !important; /* Keep Green on hover/active */
+           border-bottom-color: #1B6E38;
+       }
+
+       /* Dark Theme - Gold Nav Links */
+       html[data-theme="dark"] .desktop-nav-container a.nav-link {
+           color: #C9A961 !important; /* Gold color for all nav links in dark theme */
+       }
+
+       html[data-theme="dark"] .desktop-nav-container a.nav-link:hover,
+       html[data-theme="dark"] .desktop-nav-container a.nav-link.active {
+           color: #C9A961 !important; /* Gold in dark theme */
+           border-bottom-color: #C9A961;
+       }
+
+       /* --- 3. THEME BUTTON STYLE --- */
+       .single-theme-btn {
+           background-color: #f3f4f6;
+           color: #1B6E38;
+           padding: 8px 16px;
+           border-radius: 8px;
+           font-weight: 600;
+           border: 1px solid #e5e7eb;
+       }
+
+       /* =========================================
+          BUTTON COLOR FIX (Green in Light, Gold in Dark)
+          ========================================= */
+       /* 1. LIGHT MODE (Default) - Force Green */
+       .modern-btn, 
+       button[type="submit"] {
+           background: linear-gradient(135deg, #1B6E38 0%, #14552D 100%) !important; /* Brand Green */
+           color: #ffffff !important;
+           border: none !important;
+       }
+
+       .modern-btn:hover,
+       button[type="submit"]:hover {
+           background: linear-gradient(135deg, #14552D 0%, #0F4D2E 100%) !important; /* Darker Green on Hover */
+           transform: translateY(-2px);
+       }
+
+       /* 2. DARK MODE ONLY - Force Gold */
+       html[data-theme="dark"] .modern-btn,
+       html[data-theme="dark"] button[type="submit"] {
+           background: linear-gradient(135deg, #C9A961 0%, #B8985A 100%) !important; /* Gold Gradient */
+           color: #ffffff !important;
+       }
+
+       html[data-theme="dark"] .modern-btn:hover,
+       html[data-theme="dark"] button[type="submit"]:hover {
+           background: linear-gradient(135deg, #B8985A 0%, #A68A4B 100%) !important; /* Darker Gold on Hover */
+           box-shadow: 0 4px 15px rgba(201, 169, 97, 0.4) !important; /* Gold Glow */
+       }
+
+       /* Helper to hide elements */
+       .hidden {
+           display: none !important;
+       }
+
+       /* === EXISTING STYLES === */
+       html:not([data-theme="dark"]) body {
+           background: 
+               radial-gradient(ellipse 800px 600px at 50% 70%, rgba(167, 224, 143, 0.3) 0%, transparent 70%),
+               radial-gradient(ellipse 600px 500px at 70% 85%, rgba(127, 207, 99, 0.25) 0%, transparent 60%),
+               radial-gradient(ellipse 700px 550px at 30% 80%, rgba(149, 216, 140, 0.2) 0%, transparent 65%),
+               radial-gradient(ellipse 900px 400px at 50% 100%, rgba(117, 197, 114, 0.25) 0%, transparent 55%),
+               linear-gradient(180deg, #fafcfb 0%, #f2f7f5 15%, #e8f3f0 30%, #dfeae8 45%, #d4e0dd 60%, #c9d5d0 80%, #bcc8c2 100%);
+           background-attachment: fixed;
+           background-repeat: no-repeat;
+           background-size: cover;
+           min-height: 100vh;
+       }
+
+       /* Dark Mode Overrides */
+       html[data-theme="dark"] body { background: #0D1117 !important; color: #9CA3AF; }
+       html[data-theme="dark"] .glass-card { background: rgba(30, 38, 52, 0.82) !important; border: 1.5px solid rgba(36, 41, 51, 0.18) !important; }
+       html[data-theme="dark"] .ready-to-find-card:hover { box-shadow: none !important; transform: none !important; }
+
+       /* =========================================
+          IPAD CONTACT SECTION LAYOUT
+          ONLY for Tablets (768px - 1199px)
+          ========================================= */
+       @media (min-width: 768px) and (max-width: 1199px) {
+           /* Sage green gradient background for contact section on iPad */
+           .ipad-contact-wrapper {
+               background: linear-gradient(135deg, #E8F3E8 0%, #D4E8D4 50%, #C5E1C5 100%);
+               padding: 3rem 2rem;
+               border-radius: 2rem;
+               margin: 2rem auto;
+               max-width: 95%;
+           }
+
+           /* iPad specific grid: 2 columns */
+           .ipad-contact-grid {
+               display: grid;
+               grid-template-columns: 1fr 1.2fr;
+               gap: 2rem;
+               align-items: start;
+           }
+
+           /* Left column: Stack info cards */
+           .ipad-left-column {
+               display: flex;
+               flex-direction: column;
+               gap: 1.5rem;
+           }
+
+           /* Glassmorphism cards for iPad */
+           .ipad-glass-card {
+               background: rgba(255, 255, 255, 0.75) !important;
+               backdrop-filter: blur(20px) saturate(150%) !important;
+               -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+               border: 1px solid rgba(255, 255, 255, 0.4) !important;
+               border-radius: 1.75rem !important;
+               box-shadow: 0 8px 32px rgba(27, 110, 56, 0.08),
+                           0 2px 8px rgba(0, 0, 0, 0.02) !important;
+               padding: 2rem !important;
+               transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+           }
+
+           .ipad-glass-card:hover {
+               transform: translateY(-4px);
+               box-shadow: 0 12px 40px rgba(27, 110, 56, 0.12),
+                           0 4px 12px rgba(0, 0, 0, 0.04) !important;
+           }
+
+           /* Icon containers - square with light green bg */
+           .ipad-icon-box {
+               width: 52px !important;
+               height: 52px !important;
+               background: rgba(27, 110, 56, 0.08) !important;
+               border-radius: 12px !important;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               flex-shrink: 0;
+           }
+
+           .ipad-icon-box i {
+               color: #14532D !important;
+               font-size: 22px !important;
+           }
+
+           /* Typography - Serif for headings */
+           .ipad-heading-serif {
+               font-family: 'Playfair Display', serif !important;
+               font-size: 1.5rem !important;
+               font-weight: 700 !important;
+               color: #14532D !important;
+               margin-bottom: 0.75rem !important;
+               letter-spacing: -0.02em;
+           }
+
+           .ipad-subheading-serif {
+               font-family: 'Playfair Display', serif !important;
+               font-size: 1.1rem !important;
+               font-weight: 600 !important;
+               color: #1B6E38 !important;
+               margin-bottom: 0.5rem !important;
+           }
+
+           /* Body text - Sans-serif */
+           .ipad-body-text {
+               font-family: 'Inter', sans-serif !important;
+               font-size: 0.95rem !important;
+               line-height: 1.6 !important;
+               color: #374151 !important;
+           }
+
+           /* Working hours specific */
+           .ipad-hours-list {
+               display: flex;
+               flex-direction: column;
+               gap: 1rem;
+           }
+
+           .ipad-hours-row {
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               padding-bottom: 0.75rem;
+               border-bottom: 1px solid rgba(27, 110, 56, 0.1);
+           }
+
+           .ipad-hours-row:last-child {
+               border-bottom: none;
+           }
+
+           .ipad-hours-day {
+               font-family: 'Inter', sans-serif !important;
+               font-weight: 600 !important;
+               color: #1F2937 !important;
+               font-size: 0.95rem !important;
+           }
+
+           .ipad-hours-time {
+               font-family: 'Inter', sans-serif !important;
+               font-weight: 500 !important;
+               color: #4B5563 !important;
+               font-size: 0.95rem !important;
+           }
+
+           /* Form card - large on right */
+           .ipad-form-card {
+               background: rgba(255, 255, 255, 0.8) !important;
+               backdrop-filter: blur(20px) saturate(150%) !important;
+               -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+               border: 1px solid rgba(255, 255, 255, 0.5) !important;
+               border-radius: 1.75rem !important;
+               box-shadow: 0 8px 32px rgba(27, 110, 56, 0.08) !important;
+               padding: 2.5rem !important;
+               height: 100%;
+           }
+
+           /* Form inputs with refined styling */
+           .ipad-form-input {
+               background: #FFFFFF !important;
+               border: 1.5px solid rgba(27, 110, 56, 0.3) !important;
+               border-radius: 0.75rem !important;
+               padding: 0.875rem 1rem !important;
+               font-family: 'Inter', sans-serif !important;
+               font-size: 0.95rem !important;
+               color: #1F2937 !important;
+               transition: all 0.3s ease;
+           }
+
+           .ipad-form-input:focus {
+               outline: none !important;
+               border-color: #1B6E38 !important;
+               box-shadow: 0 0 0 3px rgba(27, 110, 56, 0.1) !important;
+           }
+
+           /* Phone input split layout */
+           .ipad-phone-group {
+               display: flex !important;
+               gap: 0.75rem !important;
+               align-items: center !important;
+           }
+
+           .ipad-phone-code {
+               flex: 0 0 90px !important;
+               background: #FFFFFF !important;
+               border: 1.5px solid rgba(27, 110, 56, 0.3) !important;
+               border-radius: 0.75rem !important;
+               padding: 0.875rem 0.5rem !important;
+               font-family: 'Inter', sans-serif !important;
+               font-size: 0.85rem !important;
+               color: #1F2937 !important;
+           }
+
+           .ipad-phone-input {
+               flex: 1 !important;
+               position: relative !important;
+           }
+
+           /* Hide label on iPad to prevent overlap */
+           @media (min-width: 768px) and (max-width: 1199px) {
+               .ipad-phone-input label {
+                   display: none !important;
+               }
+               
+               .ipad-phone-input input {
+                   padding-left: 1rem !important;
+               }
+               
+               .ipad-phone-input input::placeholder {
+                   color: #9CA3AF !important;
+                   opacity: 1 !important;
+               }
+           }
+
+           /* Submit button - Dark green */
+           .ipad-submit-btn {
+               width: 100% !important;
+               background: linear-gradient(135deg, #14532D 0%, #0F4D2E 100%) !important;
+               color: #FFFFFF !important;
+               padding: 1rem 2rem !important;
+               border-radius: 0.75rem !important;
+               font-family: 'Inter', sans-serif !important;
+               font-weight: 600 !important;
+               font-size: 1rem !important;
+               border: none !important;
+               cursor: pointer;
+               transition: all 0.3s ease;
+           }
+
+           .ipad-submit-btn:hover {
+               background: linear-gradient(135deg, #0F4D2E 0%, #0A3520 100%) !important;
+               transform: translateY(-2px);
+               box-shadow: 0 8px 24px rgba(20, 83, 45, 0.3) !important;
+           }
+
+           /* Checkbox styling */
+           .ipad-checkbox-group {
+               display: flex;
+               align-items: flex-start;
+               gap: 0.75rem;
+               margin-top: 1.5rem;
+               margin-bottom: 1.5rem;
+           }
+
+           .ipad-checkbox {
+               width: 18px;
+               height: 18px;
+               border: 2px solid #1B6E38;
+               border-radius: 4px;
+               cursor: pointer;
+           }
+
+           .ipad-checkbox-label {
+               font-family: 'Inter', sans-serif !important;
+               font-size: 0.9rem !important;
+               color: #4B5563 !important;
+               line-height: 1.5;
+           }
+
+           .ipad-checkbox-label a {
+               color: #1B6E38 !important;
+               text-decoration: underline;
+           }
+       }
+
+       /* Dark theme adjustments for iPad contact section */
+       @media (min-width: 768px) and (max-width: 1199px) {
+           html[data-theme="dark"] .ipad-contact-wrapper {
+               background: linear-gradient(135deg, #1a2a1a 0%, #0f1f0f 50%, #0a150a 100%);
+           }
+
+           html[data-theme="dark"] .ipad-glass-card,
+           html[data-theme="dark"] .ipad-form-card {
+               background: rgba(30, 41, 59, 0.7) !important;
+               border: 1px solid rgba(100, 116, 139, 0.2) !important;
+           }
+
+           html[data-theme="dark"] .ipad-heading-serif,
+           html[data-theme="dark"] .ipad-subheading-serif {
+               color: #C9A961 !important;
+           }
+
+           html[data-theme="dark"] .ipad-body-text,
+           html[data-theme="dark"] .ipad-hours-day,
+           html[data-theme="dark"] .ipad-hours-time {
+               color: #D1D5DB !important;
+           }
+
+           html[data-theme="dark"] .ipad-icon-box {
+               background: rgba(201, 169, 97, 0.15) !important;
+           }
+
+           html[data-theme="dark"] .ipad-icon-box i {
+               color: #C9A961 !important;
+           }
+
+           html[data-theme="dark"] .ipad-form-input,
+           html[data-theme="dark"] .ipad-phone-code {
+               background: rgba(31, 41, 55, 0.6) !important;
+               border-color: rgba(201, 169, 97, 0.3) !important;
+               color: #E5E7EB !important;
+           }
+
+           html[data-theme="dark"] .ipad-submit-btn {
+               background: linear-gradient(135deg, #C9A961 0%, #B8985A 100%) !important;
+           }
+
+           html[data-theme="dark"] .ipad-submit-btn:hover {
+               background: linear-gradient(135deg, #B8985A 0%, #A68A4B 100%) !important;
+           }
+       }
+
+       /* Form Styles */
+       .relative .peer:focus ~ label, .relative .peer:not(:placeholder-shown) ~ label { top: -10px; left: 16px; font-size: 0.85rem; color: #14532d; background: #fff; padding: 0 0.25rem; z-index: 2; transition: all 0.2s; }
+       .relative label { pointer-events: none; position: absolute; left: 16px; top: 14px; color: #6b7280; background: #fff; padding: 0 0.25rem; font-size: 1rem; transition: all 0.2s; z-index: 2; }
+       .relative .peer { background: #fff; border: 1.5px solid #14532d; transition: border-color 0.2s, box-shadow 0.2s; }
+       .relative .peer:focus { border-color: #C9A961; box-shadow: 0 0 0 2px rgba(201, 169, 97, 0.18); outline: none; }
+       .relative .peer:focus ~ label { color: #C9A961; }
+       
+       /* =========================================
+          BOOKING MODAL REDESIGN (Matches About.html)
+          ========================================= */
+       .booking-modal-overlay {
+           display: none;
+           position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+           background: rgba(0,0,0,0.45);
+           backdrop-filter: blur(3px) saturate(120%);
+           -webkit-backdrop-filter: blur(3px) saturate(120%);
+           z-index: 9999; align-items: center; justify-content: center;
+           padding: 1.5rem;
+       }
+       .booking-modal-overlay.active { display: flex; }
+
+       .booking-modal {
+           background: #ffffff;
+           border-radius: 24px;
+           border: 1px solid rgba(16, 24, 40, 0.08);
+           padding: 2rem;
+           width: 92%;
+           max-width: 720px;
+           max-height: 85vh;
+           overflow: hidden;  /* header pinned, body scroll */
+           box-shadow: 0 24px 72px rgba(16, 24, 40, 0.18), 0 8px 24px rgba(16, 24, 40, 0.06);
+           position: relative;
+           display: flex; flex-direction: column;
+       }
+
+       .booking-modal-header {
+           display: flex; align-items: center; justify-content: space-between;
+           padding-bottom: 0.75rem; margin-bottom: 1rem;
+           border-bottom: 1px solid rgba(16, 24, 40, 0.06);
+       }
+       .booking-modal-title {
+           font-family: 'Playfair Display', serif; font-weight: 700;
+           font-size: 1.5rem; letter-spacing: -0.01em; color: #0F172A;
+       }
+       .booking-modal-close {
+           appearance: none; border: 1px solid rgba(17,24,39,0.08);
+           background: #ffffff; color: #111827; width: 36px; height: 36px; line-height: 1;
+           border-radius: 10px; cursor: pointer;
+           display: inline-flex; align-items: center; justify-content: center;
+           box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+           transition: all 0.2s ease;
+       }
+       .booking-modal-close:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(16,24,40,0.12); }
+
+       /* Scrollable content area */
+       .booking-container {
+           overflow-y: auto;
+           padding-right: 2px;
+           flex: 1;
+           min-height: 0; /* allow flex shrink for scrolling */
+           max-height: calc(85vh - 120px); /* keep within viewport below header/footer */
+       }
+
+       .booking-label {
+           font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem; color: #1F2937;
+           display: block; margin-bottom: 0.75rem;
+       }
+
+       /* Date selector styles */
+       .date-scroll-wrapper { overflow-x: auto; padding-bottom: 8px; margin-bottom: 0.75rem; }
+       .date-grid { display: flex; gap: 12px; padding-right: 0.25rem; }
+       .date-card {
+           min-width: 84px; padding: 12px 10px; border: 1.5px solid rgba(16, 24, 40, 0.08);
+           border-radius: 14px; text-align: center; cursor: pointer; background: #FBFAF8;
+           transition: all 0.25s ease; flex-shrink: 0; color: #111827;
+           box-shadow: 0 1px 2px rgba(16,24,40,0.04);
+       }
+       .date-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(27,110,56,0.12); }
+       .date-card.active { background: #165A2E; border-color: #165A2E; color: #ffffff; font-weight: 600; }
+       .date-card.holiday { opacity: 0.45; background: #f1f5f9; cursor: not-allowed; border-color: transparent; }
+       .empty-state { text-align: center; color: #6B7280; font-family: 'Inter', sans-serif; font-size: 0.95rem; padding: 0.75rem 0; }
+
+       /* Time slot grid */
+       .slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.25rem; }
+       .time-slot { padding: 12px; text-align: center; border: 1.5px solid rgba(16, 24, 40, 0.08); border-radius: 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s ease; background: #ffffff; font-weight: 500; color: #111827; }
+       .time-slot:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(27,110,56,0.08); }
+       .time-slot.active { background: #165A2E; color: white; border-color: #165A2E; font-weight: 600; }
+
+       /* Form fields */
+       .booking-form-group { margin-bottom: 1rem; }
+       .booking-form-label { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #1F2937; font-weight: 600; margin-bottom: 0.5rem; display: block; }
+       .booking-form-input {
+           width: 100%; height: 44px; padding: 10px 12px; border-radius: 10px; border: 1.5px solid rgba(27,110,56,0.35);
+           font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #111827; background: #ffffff;
+           transition: all 0.2s ease; box-shadow: 0 1px 2px rgba(16,24,40,0.04);
+       }
+       .booking-form-input:focus { outline: none; border-color: #1B6E38; box-shadow: 0 0 0 3px rgba(27,110,56,0.12); }
+       .booking-form-input::placeholder { color: #9CA3AF; opacity: 1; }
+
+       /* Premium phone input */
+       .booking-phone-group { display: flex; align-items: center; gap: 10px; }
+       .booking-phone-code {
+           flex: 0 0 100px; height: 44px; border-radius: 10px; border: 1.5px solid rgba(27,110,56,0.35);
+           font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; background: #ffffff; padding: 0 8px;
+       }
+       .booking-phone-input { flex: 1; }
+
+       /* Buttons */
+       .booking-actions { display: flex; gap: 12px; margin-top: 0.5rem; }
+       .booking-btn { border-radius: 12px; padding: 0.75rem 1rem; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; flex: 1; }
+       .booking-btn-secondary { background: #F3F4F6; color: #111827; border-color: rgba(17,24,39,0.08); }
+       .booking-btn-secondary:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(16,24,40,0.1); }
+       .booking-btn-primary { background: linear-gradient(135deg, #1B6E38 0%, #14552D 100%); color: #ffffff; }
+       .booking-btn-primary:hover { background: linear-gradient(135deg, #14552D 0%, #0F4D2E 100%); box-shadow: 0 14px 30px rgba(27,110,56,0.22); transform: translateY(-1px); }
+
+       /* Success state */
+       .booking-success { text-align: center; padding: 1.25rem 0.5rem; }
+       .booking-success-icon { width: 64px; height: 64px; border-radius: 9999px; background: rgba(27,110,56,0.08); color: #1B6E38; display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 0.75rem; }
+       .booking-success-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #0F172A; margin-bottom: 0.25rem; }
+
+       /* Dark Theme Overrides for Modal */
+       html[data-theme="dark"] .booking-modal { background: rgba(17, 24, 39, 0.9); border-color: rgba(148,163,184,0.12); box-shadow: 0 24px 72px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25); }
+       html[data-theme="dark"] .booking-modal-title { color: #E5E7EB; }
+       html[data-theme="dark"] .booking-modal-close { background: rgba(31,41,55,0.85); color: #F3F4F6; border-color: rgba(148,163,184,0.18); }
+       html[data-theme="dark"] .booking-modal-close:hover { box-shadow: 0 10px 24px rgba(201,169,97,0.25); }
+
+       html[data-theme="dark"] .booking-label { color: #E5E7EB; }
+       html[data-theme="dark"] .date-card { background: rgba(31, 41, 55, 0.8); color: #E5E7EB; border-color: rgba(148,163,184,0.18); }
+       html[data-theme="dark"] .date-card:hover { box-shadow: 0 10px 24px rgba(201,169,97,0.18); }
+       html[data-theme="dark"] .date-card.active { background: #C9A961; border-color: #C9A961; color: #111827; }
+       html[data-theme="dark"] .date-card.holiday { background: rgba(55,65,81,0.6); }
+       html[data-theme="dark"] .empty-state { color: #9CA3AF; }
+
+       html[data-theme="dark"] .time-slot { background: rgba(31,41,55,0.85); color: #E5E7EB; border-color: rgba(148,163,184,0.18); }
+       html[data-theme="dark"] .time-slot.active { background: #C9A961; color: #111827; border-color: #C9A961; }
+
+       html[data-theme="dark"] .booking-form-input { background: rgba(31,41,55,0.85); color: #E5E7EB; border-color: rgba(201,169,97,0.3); }
+       html[data-theme="dark"] .booking-form-input:focus { border-color: #C9A961; box-shadow: 0 0 0 3px rgba(201,169,97,0.2); }
+       html[data-theme="dark"] .booking-form-input::placeholder { color: #A1A1AA; }
+       html[data-theme="dark"] .booking-phone-code { background: rgba(31,41,55,0.85); color: #E5E7EB; border-color: rgba(201,169,97,0.3); }
+
+       html[data-theme="dark"] .booking-btn-secondary { background: rgba(31,41,55,0.85); color: #E5E7EB; border-color: rgba(148,163,184,0.18); }
+       html[data-theme="dark"] .booking-btn-primary { background: linear-gradient(135deg, #C9A961 0%, #B8985A 100%); color: #111827; }
+       html[data-theme="dark"] .booking-btn-primary:hover { background: linear-gradient(135deg, #B8985A 0%, #A68A4B 100%); box-shadow: 0 16px 32px rgba(201,169,97,0.28); }
+       html[data-theme="dark"] .booking-success-icon { background: rgba(201,169,97,0.15); color: #C9A961; }
+       html[data-theme="dark"] .booking-success-title { color: #F3F4F6; }
+       
+    /* FAQ Animation */
+       .rotate-180 { transform: rotate(180deg); }
+       .faq-arrow { transition: transform 0.3s ease; }
+       
+    /* Date Cards (harmonized with redesigned modal) */
+    .date-scroll-wrapper { overflow-x: auto; padding-bottom: 8px; margin-bottom: 0.75rem; }
+    .date-grid { display: flex; gap: 12px; padding-right: 0.25rem; }
+    .date-card { min-width: 84px; padding: 12px 10px; border: 1.5px solid rgba(16, 24, 40, 0.08); border-radius: 14px; text-align: center; cursor: pointer; background: #FBFAF8; transition: all 0.25s ease; flex-shrink: 0; color: #111827; box-shadow: 0 1px 2px rgba(16,24,40,0.04); }
+    .date-card.active { background: #165A2E; border-color: #165A2E; color: #ffffff; font-weight: 600; }
+    .date-card.holiday { opacity: 0.45; background: #f1f5f9; cursor: not-allowed; border-color: transparent; }
+
+    .slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.25rem; }
+    .time-slot { padding: 12px; text-align: center; border: 1.5px solid rgba(16, 24, 40, 0.08); border-radius: 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s ease; background: #ffffff; font-weight: 500; color: #111827; }
+    .time-slot.active { background: #165A2E; color: white; border-color: #165A2E; font-weight: 600; }
+       
+       /* Lap Button Styles */
+       .lap-btn-wrap {
+           position: fixed;
+           right: 10px;
+           top: 50%;
+           transform: translateY(-50%);
+           z-index: 9999;
+           opacity: 0;
+           pointer-events: none;
+           transition: opacity 0.3s ease, transform 0.3s ease;
+       }
+
+       .lap-btn-wrap.visible {
+           opacity: 1;
+           pointer-events: auto;
+       }
+
+       .lap-btn {
+           position: relative;
+           width: 50px;
+           height: 100px;
+           background: #fafbfa;
+           border-radius: 25px;
+           box-shadow: 0 4px 18px rgba(23, 111, 60, 0.08);
+           border: 1px solid #f0f4f0;
+           cursor: pointer;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+       }
+
+       .lap-btn .arrow {
+           font-size: 14px;
+           color: #176f3c;
+           margin-bottom: 4px;
+       }
+
+       .lap-btn .label {
+           writing-mode: vertical-rl;
+           transform: rotate(180deg);
+           font-size: 12px;
+           font-weight: 600;
+           color: #176f3c;
+       }
+
+       .lap-border {
+           position: absolute;
+           top: 0;
+           left: 0;
+           overflow: visible;
+           pointer-events: none;
+       }
+
+       .lap-border rect {
+           fill: none;
+           stroke: #2d7a4a;
+           stroke-width: 3;
+           stroke-linecap: round;
+           stroke-dasharray: 0;
+           stroke-dashoffset: 0;
+           transition: stroke-dashoffset 0.15s linear;
+       }
+
+       @media (max-width:720px){
+           .lap-btn-wrap {
+               right: 12px;
+               bottom: calc(12px + env(safe-area-inset-bottom, 12px));
+               top: auto;
+               transform: translateY(0);
+           }
+
+           .lap-btn-wrap.hidden {
+               transform: translateY(20px);
+           }
+
+           .lap-btn {
+               width: 48px;
+               height: 48px;
+               border-radius: 50%;
+           }
+
+           .lap-btn .label {
+               display: none;
+           }
+
+           .lap-btn .arrow {
+               margin-bottom: 0;
+           }
+
+           .lap-border {
+               width: 48px;
+               height: 48px;
+           }
+
+           .lap-border rect {
+               display: none;
+           }
+       }
+
+       /* Dark Theme Lap Button Styles */
+       html[data-theme="dark"] .lap-btn .arrow {
+           color: #c9a961 !important;
+       }
+
+       html[data-theme="dark"] .lap-btn .label {
+           color: #c9a961 !important;
+       }
+
+       html[data-theme="dark"] .lap-btn {
+           background: #ffffff !important;
+           border: 1px solid rgba(201, 169, 97, 0.3) !important;
+           box-shadow: 0 4px 18px rgba(201, 169, 97, 0.15) !important;
+       }
+
+       html[data-theme="dark"] .lap-border rect {
+           stroke: #c9a961 !important;
+       }
+    </style>
+</head>
+
+<body class="font-sans text-text-primary bg-white leading-normal body-brand fadein-page enable-css-anim nd-fade">
+
+    <header class="site-header transition-all duration-300" id="main-header">
+        <div class="container flex items-center justify-between h-[80px] px-4 mx-auto">
+            <a href="index.html" class="logo-container">
+                <img src="./images/Anathalogo.png" alt="Ananthaa Spaces logo" class="logo-image h-12 w-auto transition-all duration-300" id="header-logo">
+            </a>
+            
+            <div class="desktop-nav-container">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                
+                <div class="ml-4">
+                    <button id="theme-toggle" class="single-theme-btn focus:outline-none" title="Toggle theme">Default</button>
+                </div>
+            </div>
+
+            <button id="mobile-menu-btn" 
+                    class="flex items-center justify-center p-2 rounded focus:outline-none" 
+                    style="position: relative !important; z-index: 10000 !important; cursor: pointer;"
+                    aria-label="Open menu" 
+                    type="button">
+                <svg id="menu-icon" class="w-7 h-7 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            
+            <div id="mobile-menu-panel" class="hidden">
+                <nav class="mobile-menu-sheet animate-slideInRight">
+                    <button id="close-mobile-menu" 
+                            class="self-end p-2 mb-4 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors cursor-pointer" 
+                            aria-label="Close menu" 
+                            type="button">
+                        <svg class="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    
+                    <div class="mobile-menu-links">
+                        <a href="index.html">Home</a>
+                        <a href="projects.html">Projects</a>
+                        <a href="about.html">About</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                    
+                    <div class="mt-auto mb-6">
+                        <button id="theme-toggle-mobile" class="w-full py-3 bg-gray-100 rounded-lg font-bold text-primary" title="Toggle theme">Default</button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="modern-card contact-hero mx-auto w-[90%] md:w-[80%] max-w-3xl p-10 text-center working-hours-card d7 data-nd-animate nd-fade m-animate" style="backdrop-filter: blur(8px) saturate(120%); border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.18); margin-top: 100px; padding-top: 2rem;" data-aos="fade-up">
+      <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-brand-green our-story-title" style="font-family:'Playfair Display',serif; letter-spacing:-1px; font-size: 40px;">Contact Us</h2>
+      <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text" style="font-size:20px;">
+        Have questions or want to schedule a site visit? Fill out the form and we’ll reach out shortly.
+      </p>
+    </div>
+
+    <div class="container mx-auto px-4 d1 ipad-contact-wrapper" style="margin-top: 60px; margin-bottom: 60px;">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12 ipad-contact-grid">
+            
+            <div class="space-y-8 d1 slidein-right ipad-left-column" data-aos="fade-right">
+                <!-- Office Info Card -->
+                <div class="p-8 rounded-xl shadow-lg border border-gray-100 contact-info-elegant glass-card modern-card d6 working-hours-card ipad-glass-card" style="backdrop-filter: blur(10px) saturate(120%); border-radius: 1.5rem;">
+                    
+                    <div class="flex items-start space-x-4 mb-6">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center ipad-icon-box">
+                            <i class="fas fa-map-marker-alt text-primary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-brand-green our-story-title ipad-subheading-serif" style="font-family:'Playfair Display',serif; font-size: 24px; margin-bottom:10px;">Our Office</h3>
+                            <p class="text-lg font-medium text-gray-800 leading-relaxed luxury-text ipad-body-text">First Floor, MVS Entrada, Plot 1057, Jubilee Hills, Hyderabad 500033</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4 mb-6">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center ipad-icon-box">
+                             <i class="fas fa-phone-alt text-primary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-brand-green our-story-title ipad-subheading-serif" style="font-family:'Playfair Display',serif; font-size: 24px; margin-bottom:10px;">Phone</h3>
+                            <p class="text-lg font-medium text-gray-800 leading-relaxed luxury-text ipad-body-text">+91 9538 123 123</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center ipad-icon-box">
+                             <i class="fas fa-envelope text-primary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-brand-green our-story-title ipad-subheading-serif" style="font-family:'Playfair Display',serif; font-size: 24px; margin-bottom:10px;">Email</h3>
+                            <p class="text-lg font-medium text-gray-800 leading-relaxed luxury-text ipad-body-text">info@ananthaa.co.in</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Working Hours Card -->
+                <div class="p-8 rounded-xl shadow-lg border border-gray-100 d6 glass-card modern-card working-hours-card ipad-glass-card" style="backdrop-filter: blur(10px); border-radius: 1.5rem;">
+                    <h3 class="text-brand-green our-story-title ipad-heading-serif" style="font-family:'Playfair Display',serif; font-size: 24px; margin-bottom:20px;">Working Hours</h3>
+                    <ul class="space-y-3 text-lg ipad-hours-list">
+                        <li class="flex justify-between ipad-hours-row">
+                            <span class="text-lg font-medium text-gray-800 ipad-hours-day">Mon - Fri</span>
+                            <span class="text-lg font-medium text-gray-800 ipad-hours-time">9:00 AM - 7:00 PM</span>
+                        </li>
+                        <li class="flex justify-between ipad-hours-row">
+                            <span class="text-lg font-medium text-gray-800 ipad-hours-day">Saturday</span>
+                            <span class="text-lg font-medium text-gray-800 ipad-hours-time">10:00 AM - 5:00 PM</span>
+                        </li>
+                        <li class="flex justify-between ipad-hours-row">
+                            <span class="text-lg font-medium text-gray-800 ipad-hours-day">Sunday</span>
+                            <span class="text-lg font-medium text-gray-800 ipad-hours-time">Closed</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="lg:col-span-2 flex slidein-left" data-aos="fade-left">
+                <div class="p-8 md:p-10 rounded-xl shadow-lg border border-gray-100 w-full h-full glass-card modern-card ipad-form-card" style="backdrop-filter: blur(10px) saturate(120%); border-radius: 1.5rem;">
+                    <h3 class="text-brand-green our-story-title ipad-heading-serif" style="font-family:'Playfair Display',serif; letter-spacing:-1px; font-size: 24px; margin-bottom:20px;">Send us a message</h3>
+                    
+                    <form id="home-contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="relative">
+                                <input type="text" id="contact-name" class="peer h-12 w-full px-4 text-gray-900 border border-green-800 rounded-lg focus:outline-none focus:ring-2 modern-input ipad-form-input" placeholder=" " required>
+                                <label for="contact-name" class="absolute left-4 -top-2.5 px-1 text-sm text-gray-500 bg-white change d6" style="z-index:2;">Full Name *</label>
+                            </div>
+                            <div class="relative">
+                                <input type="email" id="contact-email" class="peer h-12 w-full px-4 text-gray-900 border border-green-800 rounded-lg focus:outline-none focus:ring-2 modern-input ipad-form-input" placeholder=" " required>
+                                <label for="contact-email" class="absolute left-4 -top-2.5 px-1 text-sm text-gray-500 bg-white change d6" style="z-index:2;">Email Address *</label>
+                            </div>
+                        </div>
+
+                        <div class="relative mb-6">
+                             <div class="flex w-full flex-col md:flex-row gap-4 md:gap-2 ipad-phone-group">
+                                <div class="relative w-full md:w-40">
+                                    <select id="country-code" class="h-12 w-full pl-3 pr-8 text-sm text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 appearance-none country-select change d7 ipad-phone-code">
+                                        <!-- Asia -->
+                                        <option value="+91" selected>India (IN) +91</option>
+                                        <option value="+86">China (CN) +86</option>
+                                        <option value="+81">Japan (JP) +81</option>
+                                        <option value="+82">South Korea (KR) +82</option>
+                                        <option value="+65">Singapore (SG) +65</option>
+                                        <option value="+60">Malaysia (MY) +60</option>
+                                        <option value="+66">Thailand (TH) +66</option>
+                                        <option value="+63">Philippines (PH) +63</option>
+                                        <option value="+62">Indonesia (ID) +62</option>
+                                        <option value="+84">Vietnam (VN) +84</option>
+                                        <option value="+880">Bangladesh (BD) +880</option>
+                                        <option value="+92">Pakistan (PK) +92</option>
+                                        <option value="+94">Sri Lanka (LK) +94</option>
+                                        <option value="+852">Hong Kong (HK) +852</option>
+                                        
+                                        <!-- Middle East -->
+                                        <option value="+971">UAE (AE) +971</option>
+                                        <option value="+966">Saudi Arabia (SA) +966</option>
+                                        <option value="+974">Qatar (QA) +974</option>
+                                        <option value="+965">Kuwait (KW) +965</option>
+                                        <option value="+968">Oman (OM) +968</option>
+                                        <option value="+973">Bahrain (BH) +973</option>
+                                        <option value="+972">Israel (IL) +972</option>
+                                        <option value="+90">Turkey (TR) +90</option>
+                                        
+                                        <!-- Europe -->
+                                        <option value="+44">United Kingdom (GB) +44</option>
+                                        <option value="+49">Germany (DE) +49</option>
+                                        <option value="+33">France (FR) +33</option>
+                                        <option value="+39">Italy (IT) +39</option>
+                                        <option value="+34">Spain (ES) +34</option>
+                                        <option value="+31">Netherlands (NL) +31</option>
+                                        <option value="+41">Switzerland (CH) +41</option>
+                                        <option value="+46">Sweden (SE) +46</option>
+                                        <option value="+47">Norway (NO) +47</option>
+                                        <option value="+45">Denmark (DK) +45</option>
+                                        <option value="+48">Poland (PL) +48</option>
+                                        <option value="+7">Russia (RU) +7</option>
+                                        
+                                        <!-- North America -->
+                                        <option value="+1">United States (US) +1</option>
+                                        <option value="+1">Canada (CA) +1</option>
+                                        <option value="+52">Mexico (MX) +52</option>
+                                        
+                                        <!-- South America -->
+                                        <option value="+55">Brazil (BR) +55</option>
+                                        <option value="+54">Argentina (AR) +54</option>
+                                        <option value="+56">Chile (CL) +56</option>
+                                        <option value="+57">Colombia (CO) +57</option>
+                                        
+                                        <!-- Oceania -->
+                                        <option value="+61">Australia (AU) +61</option>
+                                        <option value="+64">New Zealand (NZ) +64</option>
+                                        
+                                        <!-- Africa -->
+                                        <option value="+27">South Africa (ZA) +27</option>
+                                        <option value="+234">Nigeria (NG) +234</option>
+                                        <option value="+254">Kenya (KE) +254</option>
+                                        <option value="+20">Egypt (EG) +20</option>
+                                    </select>
+                                </div>
+                                <div class="relative w-full md:flex-1 ipad-phone-input">
+                                    <input type="tel" id="contact-phone" class="peer h-12 w-full px-4 text-gray-900 border border-green-800 rounded-lg focus:outline-none focus:ring-2 modern-input ipad-form-input" placeholder="Phone Number *" required>
+                                    <label for="contact-phone" class="absolute left-4 -top-2.5 px-1 text-sm text-gray-500 bg-white change d6" style="z-index:2;">Phone Number *</label>
+                                </div>
+                             </div>
+                        </div>
+
+                        <div class="relative">
+                            <input type="text" id="contact-subject" class="peer h-12 w-full px-4 text-gray-900 border border-green-800 rounded-lg focus:outline-none focus:ring-2 modern-input ipad-form-input" placeholder=" " required>
+                            <label for="contact-subject" class="absolute left-4 -top-2.5 px-1 text-sm text-gray-500 bg-white change d6" style="z-index:2;">Subject *</label>
+                        </div>
+
+                        <div class="relative">
+                            <textarea id="contact-message" rows="5" class="peer w-full px-4 py-3 text-gray-900 border border-green-800 rounded-lg focus:outline-none focus:ring-2 modern-input ipad-form-input" placeholder=" " required></textarea>
+                            <label for="contact-message" class="absolute left-4 -top-2.5 px-1 text-sm text-gray-500 bg-white change d6" style="z-index:2;">Your Message *</label>
+                        </div>
+                        
+                        <div class="flex items-start ipad-checkbox-group">
+                             <div class="flex items-center h-5">
+                                 <input id="terms" name="terms" type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded ipad-checkbox" required>
+                             </div>
+                             <div class="ml-3 text-sm">
+                                 <label for="terms" class="font-medium text-gray-700 ipad-checkbox-label">I agree to the <a href="#" class="text-primary hover:underline">Terms & Conditions</a></label>
+                             </div>
+                         </div>
+
+                        <div class="mt-6 relative group">
+                            <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-lg transition-all transform hover:-translate-y-0.5 modern-btn ipad-submit-btn">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d1" style="margin-bottom: -20px; margin-top: 80px;">
+        <div class="mx-auto max-w-3xl p-10 text-center modern-card d7 ready-to-find-card" style="backdrop-filter: blur(8px) saturate(120%); border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.18);" data-aos="fade-up">
+             <h3 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-brand-green our-story-title" style="font-family:'Playfair Display',serif; letter-spacing:-1px; font-size: 40px;">Ready to Find Your Dream Home?</h3>
+             <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text" style="font-size:20px; margin-bottom: 30px;">Schedule a site visit or get more information about our projects.</p>
+             <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <button class="btn-primary inline-flex items-center justify-center bg-primary text-white px-8 py-4 rounded-full font-medium hover:shadow-xl hover:scale-105 transition-all duration-300 modern-btn" data-booking-trigger>
+                    <i class="fas fa-calendar-alt mr-3"></i> Schedule a Site Visit
+                </button>
+                <a href="tel:+919538123123" class="btn-primary inline-flex items-center justify-center bg-primary text-white px-8 py-4 rounded-full font-medium hover:shadow-xl hover:scale-105 transition-all duration-300 modern-btn">
+                    <i class="fas fa-phone-alt mr-3"></i> Call Us Now
+                </a>
+             </div>
+        </div>
+    </div>
+
+    <div class="mt-10 lg:mt-12 max-w-7xl mx-auto px-4" style="margin-bottom: 60px;">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div class="p-4 lg:p-6 flex items-center lg:col-span-5">
+                <div>
+                    <h3 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-brand-green our-story-title" style="font-family:'Playfair Display',serif; letter-spacing:-1px; font-size: 40px; margin-bottom:20px; margin-left: -30px;">Reach Out and Connect</h3>
+                    <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text" style="font-size:20px; margin-left: -25px;">
+                        Discover the future with Ananthaa Spaces. Our upcoming projects are designed to inspire and elevate your lifestyle.
+                        Join us on a transformative journey where modern living meets sustainable development.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 flex justify-center lg:justify-end">
+                <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-white w-full h-full">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3804.046048986555!2d78.4063534!3d17.4268672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb916a0155faf3%3A0x46cf48cfd9b041dc!2sAnanthaa%20Spaces%2C%20First%20Floor%2C%20MVS%20Entrada%2C%20Plot%201057%2C%20Road%20No.%2045%2C%20Jubilee%20Hills%2C%20Nandagiri%20Hills%2C%20Hyderabad%2C%20Telangana%20500033!5e0!3m2!1sen!2sin!4v1732099200000!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; min-height: 400px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-16 pattern-bg d1" data-aos="fade-up">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-brand-green our-story-title" style="font-family:'Playfair Display',serif; letter-spacing:-1px; font-size: 40px;">Frequently Asked Questions</h3>
+                <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text" style="font-size:20px;">Find answers to common questions about our projects, booking process, and more.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto space-y-4">
+                <div class="rounded-xl shadow-sm overflow-hidden d1 modern-card d6">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left">
+                        <span class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text">What types of properties does Ananthaa Spaces offer?</span>
+                        <span class="w-6 h-6 flex items-center justify-center"><i class="fas fa-chevron-down faq-arrow text-primary"></i></span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 pt-0">
+                        <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text">Ananthaa Spaces offers a variety of residential properties including luxury apartments, premium villas, and gated communities. Our projects are designed with modern architecture, Vastu compliance, and premium amenities.</p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-sm overflow-hidden d1 modern-card d6">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left">
+                        <span class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text">How can I book a site visit?</span>
+                        <span class="w-6 h-6 flex items-center justify-center"><i class="fas fa-chevron-down faq-arrow text-primary"></i></span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 pt-0">
+                        <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text">You can book a site visit by calling us at +91 9538 123 123, filling out the contact form on this page, or using the 'Schedule a Site Visit' button.</p>
+                    </div>
+                </div>
+                 <div class="rounded-xl shadow-sm overflow-hidden d1 modern-card d6">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left">
+                        <span class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text">What is the payment plan for your projects?</span>
+                        <span class="w-6 h-6 flex items-center justify-center"><i class="fas fa-chevron-down faq-arrow text-primary"></i></span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 pt-0">
+                        <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text">We offer flexible payment plans to suit your needs. Typically, our payment structure includes a booking amount followed by construction-linked payments.</p>
+                    </div>
+                </div>
+                 <div class="rounded-xl shadow-sm overflow-hidden d1 modern-card d6">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left">
+                        <span class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text">Are your projects RERA approved?</span>
+                        <span class="w-6 h-6 flex items-center justify-center"><i class="fas fa-chevron-down faq-arrow text-primary"></i></span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 pt-0">
+                        <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text">Yes, all our projects are RERA approved. We ensure full compliance with all regulatory requirements and maintain complete transparency.</p>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="text-center mt-10">
+                <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed luxury-text" style="font-size:20px; padding-bottom: 20px;">Still have questions?</p>
+                <a href="#home-contact-form" class="btn-primary inline-flex items-center justify-center bg-primary text-white px-8 py-4 rounded-full font-medium hover:shadow-xl hover:scale-105 transition-all duration-300 d4 modern-btn">
+                    <span class="btn-icon mr-2 d4"><i class="fas fa-paper-plane d4"></i></span> Send Us a Message
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-6 pb-2 relative">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0 bg-pattern"></div>
+        </div>
+        
+        <div class="relative z-10 container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <img src="images/Anathalogo.png" alt="Ananthaa Spaces" class="h-12 w-auto">
+                        <div class="ml-3">
+                            <div class="text-xl font-bold text-white">ANANTHAA</div>
+                            <div class="text-lg text-gray-300">SPACES</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">Crafting dreams and building legacies with Vastu-compliant, premium quality homes in Hyderabad.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="projects.html" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
+                        <li><a href="gallery.html" class="text-gray-400 hover:text-white transition-colors">Gallery</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Contact Us</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-400">First Floor, MVS Entrada, Plot, 1057, Cable Bridge Rd, Nandagiri Hills, Road No-45, Jubilee Hills, Hyderabad, Telangana 500032</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="text-primary mr-3" style="width: 1em; height: 1em;">
+                                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+                            </svg>
+                            <a href="tel:+919538123123" class="text-gray-400 hover:text-white transition-colors">+91 9538 123 123</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-primary mr-3"></i>
+                            <a href="mailto:info@ananthaa.co.in" class="text-gray-400 hover:text-white transition-colors">info@ananthaa.co.in</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock text-primary mr-3"></i>
+                            <span class="text-gray-400">Mon - Sat: 9:00 AM - 7:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="newsletter-section">
+                    <h3 class="newsletter-title text-base">Newsletter</h3>
+                    <p class="newsletter-description text-xs mb-3">Subscribe to our newsletter for the latest updates and exclusive offers on premium Vastu-compliant homes.</p>
+                    <form class="space-y-2">
+                        <input type="email" placeholder="Enter your email address" class="newsletter-input w-full text-sm py-2">
+                        <button type="submit" class="newsletter-button w-full text-sm py-2">
+                            <span class="relative z-10">Subscribe Now</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-2 mt-4">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-2">
+                    <p class="text-gray-500 text-xs mb-2 md:mb-0">© 2023 Ananthaa Spaces. All rights reserved.</p>
+                    <div class="flex space-x-4 text-xs">
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors">Terms of Service</a>
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="lap-btn-wrap" id="lapBtnWrap">
+        <button class="lap-btn" id="topBtn" type="button">
+            <span class="arrow">↑</span>
+            <span class="label">Top</span>
+            <svg class="lap-border" width="50" height="100">
+                <rect id="lapRect" x="1.5" y="1.5" width="45" height="97" rx="24.5" ry="24.5"></rect>
+            </svg>
+        </button>
+    </div>
+
+    <div class="booking-modal-overlay" id="bookingModalOverlay">
+        <div class="booking-modal">
+            <div class="booking-modal-header">
+                <h2 class="booking-modal-title">Book a Site Visit</h2>
+                <button class="booking-modal-close" id="closeBookingModal">×</button>
+            </div>
+            
+            <div id="bookingForm">
+                <div class="booking-container">
+                    <label class="booking-label">Select a Date</label>
+                    <div class="date-scroll-wrapper"><div class="date-grid" id="dateGrid"></div></div>
+
+                    <label class="booking-label" style="margin-top: 1.5rem;">Select a Time Slot</label>
+                    <div class="slot-grid" id="slotGrid"><div class="empty-state">Please select a date first</div></div>
+
+                    <div class="booking-form-group">
+                        <label class="booking-form-label">Full Name *</label>
+                        <input type="text" id="visitorName" class="booking-form-input" placeholder="Your name" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label">Email Address *</label>
+                        <input type="email" id="visitorEmail" class="booking-form-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label">Phone Number *</label>
+                        <div class="booking-phone-group">
+                            <select id="visitorCountry" class="booking-phone-code" aria-label="Country code">
+                                <option value="+91" selected>IN +91</option>
+                                <option value="+1">US +1</option>
+                                <option value="+44">GB +44</option>
+                                <option value="+971">AE +971</option>
+                                <option value="+65">SG +65</option>
+                                <option value="+61">AU +61</option>
+                            </select>
+                            <input type="tel" id="visitorPhone" class="booking-form-input booking-phone-input" placeholder="Your phone number" required>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="selectedDate">
+                    <input type="hidden" id="selectedTime">
+
+                    <div class="booking-actions">
+                        <button type="button" class="booking-btn booking-btn-secondary" id="cancelBooking">Cancel</button>
+                        <button type="button" class="booking-btn booking-btn-primary" id="submitBooking">Confirm Booking</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bookingSuccess" style="display: none;">
+                <div class="booking-success">
+                    <div class="booking-success-icon">✓</div>
+                    <div class="booking-success-title">Booking Confirmed!</div>
+                    <p>Our team will call you shortly to confirm the details.</p>
+                    <button type="button" class="booking-btn booking-btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="location.reload()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="./js/theme-manager.js"></script>
+    <script src="js/contact-form.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const menuPanel = document.getElementById('mobile-menu-panel');
+            const closeBtn = document.getElementById('close-mobile-menu');
+
+            // Open Menu
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (menuPanel) {
+                        menuPanel.classList.remove('hidden');
+                        menuPanel.style.display = 'flex'; // Force display override
+                    }
+                });
+            }
+
+            // Close Menu
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (menuPanel) {
+                        menuPanel.classList.add('hidden');
+                        menuPanel.style.display = 'none'; // Force hide
+                    }
+                });
+            }
+
+            // Close when clicking outside
+            if (menuPanel) {
+                menuPanel.addEventListener('click', function(e) {
+                    if (e.target === menuPanel) {
+                        menuPanel.classList.add('hidden');
+                        menuPanel.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        // Other Scripts (AOS, Select2, Booking)
+        AOS.init({ once: true, duration: 900 });
+        $(document).ready(function() { $('#country-code').select2({ placeholder: "Select Code", width: '100%' }); });
+        
+        document.querySelectorAll('.faq-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const arrow = toggle.querySelector('.faq-arrow');
+                content.classList.toggle('hidden');
+                arrow.parentElement.classList.toggle('rotate-180');
+            });
+        });
+
+        function initBookingSystem() {
+            const overlay = document.getElementById('bookingModalOverlay');
+            const closeBtn = document.getElementById('closeBookingModal');
+            const cancelBtn = document.getElementById('cancelBooking');
+            const dateGrid = document.getElementById('dateGrid');
+            const slotGrid = document.getElementById('slotGrid');
+            const dateInput = document.getElementById('selectedDate');
+            const timeInput = document.getElementById('selectedTime');
+
+            document.querySelectorAll('[data-booking-trigger]').forEach(btn => {
+                btn.addEventListener('click', (e) => { e.preventDefault(); if(overlay) overlay.classList.add('active'); });
+            });
+            const closeModal = () => { if(overlay) overlay.classList.remove('active'); };
+            if(closeBtn) closeBtn.addEventListener('click', closeModal);
+            if(cancelBtn) cancelBtn.addEventListener('click', closeModal);
+            if(overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+            if(dateGrid) {
+                dateGrid.innerHTML = '';
+                const today = new Date();
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                for (let i = 0; i < 7; i++) {
+                    const date = new Date(today); date.setDate(today.getDate() + i);
+                    const dayIndex = date.getDay(); const isWeekend = (dayIndex === 0 || dayIndex === 6);
+                    const offsetDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+                    const dateValue = offsetDate.toISOString().split('T')[0];
+                    const card = document.createElement('div');
+                    card.className = `date-card ${isWeekend ? 'holiday' : ''}`;
+                    card.innerHTML = `<div class="date-day">${days[dayIndex]}</div><div class="date-num">${date.getDate()}</div>`;
+                    if (!isWeekend) {
+                        card.addEventListener('click', () => {
+                            document.querySelectorAll('.date-card').forEach(c => c.classList.remove('active'));
+                            card.classList.add('active'); if(dateInput) dateInput.value = dateValue; generateSlots();
+                        });
+                    }
+                    dateGrid.appendChild(card);
+                }
+            }
+            function generateSlots() {
+                if(!slotGrid) return; slotGrid.innerHTML = '';
+                const slots = ['10:00 AM', '11:00 AM', '12:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'];
+                slots.forEach(slot => {
+                    const slotBtn = document.createElement('button'); slotBtn.className = 'time-slot'; slotBtn.type = 'button'; slotBtn.textContent = slot;
+                    slotBtn.addEventListener('click', () => {
+                        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
+                        slotBtn.classList.add('active'); if(timeInput) timeInput.value = slot;
+                    });
+                    slotGrid.appendChild(slotBtn);
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', initBookingSystem);
+
+        const btnWrap = document.getElementById("lapBtnWrap"); const rect = document.getElementById("lapRect");
+        window.addEventListener("DOMContentLoaded", () => {
+            const length = rect.getTotalLength(); rect.style.strokeDasharray = length; rect.style.strokeDashoffset = length;
+            window.addEventListener("scroll", () => {
+                const scrollTop = window.scrollY; const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                if (scrollTop > 200) { btnWrap.classList.remove("hidden"); btnWrap.classList.add("visible"); } 
+                else { btnWrap.classList.add("hidden"); btnWrap.classList.remove("visible"); }
+                let percent = scrollTop / docHeight; if(percent < 0) percent = 0; if(percent > 1) percent = 1;
+                rect.style.strokeDashoffset = length * (1 - percent);
+            });
+        });
+        document.getElementById("topBtn").addEventListener("click", () => { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    </script>
+</body>
+</html>
