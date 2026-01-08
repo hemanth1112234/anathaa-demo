@@ -77,6 +77,14 @@ function showLoginModal(actionCallback) {
 
     if (document.getElementById("google-login-modal")) return;
 
+    // Respect current theme for better contrast in dark mode
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const panelBg = isDark ? '#0f172a' : '#ffffff';
+    const panelText = isDark ? '#e2e8f0' : '#1f2937';
+    const subtitleText = isDark ? '#cbd5e1' : '#4b5563';
+    const shadow = isDark ? '0 20px 60px rgba(0,0,0,0.55)' : '0 20px 60px rgba(0,0,0,0.20)';
+    const closeColor = isDark ? '#cbd5e1' : '#1f2937';
+
     const modalDiv = document.createElement("div");
     modalDiv.id = "google-login-modal";
     modalDiv.style.cssText = `
@@ -86,10 +94,10 @@ function showLoginModal(actionCallback) {
     `;
     
     modalDiv.innerHTML = `
-        <div style="background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; position: relative;">
-            <button id="close-login" style="position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 20px; cursor: pointer;">&times;</button>
-            <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 15px; color: #1B6E38;">Please Sign In</h2>
-            <p style="color: #666; margin-bottom: 20px;">To book a site visit or send a message, please verify your identity with Google.</p>
+        <div style="background: ${panelBg}; color: ${panelText}; padding: 32px 32px 28px; border-radius: 14px; text-align: center; max-width: 420px; width: calc(100% - 32px); position: relative; box-shadow: ${shadow};">
+            <button id="close-login" style="position: absolute; top: 10px; right: 14px; border: none; background: none; font-size: 20px; cursor: pointer; color: ${closeColor};">&times;</button>
+            <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 12px; color: #4FAF64; font-size: 22px;">Please Sign In</h2>
+            <p style="color: ${subtitleText}; margin-bottom: 20px; font-size: 15px; line-height: 1.6;">To book a site visit or send a message, please verify your identity with Google.</p>
             <div id="google-btn-container" style="display: flex; justify-content: center;"></div>
         </div>
     `;
@@ -98,7 +106,7 @@ function showLoginModal(actionCallback) {
 
     google.accounts.id.renderButton(
         document.getElementById("google-btn-container"),
-        { theme: "outline", size: "large", width: 250 }
+        { theme: isDark ? "filled_black" : "outline", size: "large", width: 250 }
     );
 
     document.getElementById("close-login").onclick = () => modalDiv.remove();
