@@ -1143,12 +1143,13 @@
                 <div class="newsletter-section">
                     <h3 class="newsletter-title text-base">Newsletter</h3>
                     <p class="newsletter-description text-xs mb-3">Subscribe to our newsletter for the latest updates and exclusive offers on premium Vastu-compliant homes.</p>
-                    <form class="space-y-2">
-                        <input type="email" placeholder="Enter your email address" class="newsletter-input w-full text-sm py-2">
-                        <button type="submit" class="newsletter-button w-full text-sm py-2">
+                    <div id="newsletter-section">
+                        <input type="email" id="news-email" placeholder="Enter your email address" class="newsletter-input w-full text-sm py-2" required />
+                        <button onclick="subscribeToNewsletter()" class="newsletter-button w-full text-sm py-2">
                             <span class="relative z-10">Subscribe Now</span>
                         </button>
-                    </form>
+                        <p id="news-status" style="margin-top: 8px; font-size: 12px; min-height: 18px;"></p>
+                    </div>
                 </div>
             </div>
             
@@ -1354,6 +1355,49 @@
             });
         });
         document.getElementById("topBtn").addEventListener("click", () => { window.scrollTo({ top: 0, behavior: "smooth" }); });
+        
+        // Newsletter Subscription Function
+        async function subscribeToNewsletter() {
+            const email = document.getElementById("news-email").value;
+            const status = document.getElementById("news-status");
+            
+            if(!email) { 
+                status.style.color = "#ff6b6b";
+                status.innerText = "Please enter an email."; 
+                return; 
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailRegex.test(email)) {
+                status.style.color = "#ff6b6b";
+                status.innerText = "Please enter a valid email address.";
+                return;
+            }
+
+            status.style.color = "#888";
+            status.innerText = "Saving...";
+
+            try {
+                const response = await fetch('https://anathaa-demo.onrender.com/api/newsletter', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+
+                if (response.ok) {
+                    status.style.color = "#4FAF64";
+                    status.innerText = "✓ Subscribed successfully!";
+                    document.getElementById("news-email").value = "";
+                } else {
+                    status.style.color = "#ff6b6b";
+                    status.innerText = "Error subscribing. Please try again.";
+                }
+            } catch (error) {
+                console.error("Newsletter error:", error);
+                status.style.color = "#ff6b6b";
+                status.innerText = "Network error. Please check your connection.";
+            }
+        }
     </script>
 </body>
 </html>

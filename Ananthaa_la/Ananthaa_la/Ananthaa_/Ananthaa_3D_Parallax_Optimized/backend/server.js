@@ -61,6 +61,26 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
+// ==========================================
+// 3. NEWSLETTER SUBSCRIPTION SYSTEM
+// ==========================================
+const NewsletterSchema = new mongoose.Schema({
+    email: String,
+    createdAt: { type: Date, default: Date.now }
+});
+const NewsletterSubscriber = mongoose.model('NewsletterSubscriber', NewsletterSchema);
+
+app.post('/api/newsletter', async (req, res) => {
+    try {
+        const newSubscriber = new NewsletterSubscriber(req.body);
+        await newSubscriber.save();
+        console.log("📧 New Newsletter Subscriber:", req.body.email);
+        res.status(201).json({ message: "Subscribed Successfully!" });
+    } catch (error) {
+        res.status(500).json({ error: "Server Error" });
+    }
+});
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
