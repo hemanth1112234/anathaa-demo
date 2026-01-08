@@ -1,22 +1,131 @@
-console.log("🚀 Custom Backend Script Loaded!");
+console.log("🚀 Google Auth & Backend Script Loaded!");
 
 // ==========================================
-// 1. BOOKING SYSTEM (Modal)
+// 🔴 CONFIGURATION
+// ==========================================
+const GOOGLE_CLIENT_ID = "468110163912-3mrhnvqore5hohm8dnl4u1dv9ptdj94i.apps.googleusercontent.com"; 
+
+let userIsSignedIn = false;
+let userEmail = "";
+let userName = "";
+
+// ==========================================
+// 1. INITIALIZE GOOGLE SIGN-IN
+// ==========================================
+function loadGoogleLibrary() {
+    const script = document.createElement('script');
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+        google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleCredentialResponse
+        });
+        console.log("🔒 Google Sign-In Initialized");
+    };
+    document.head.appendChild(script);
+}
+
+// Handle the login success
+function handleCredentialResponse(response) {
+    console.log("✅ User Signed In!");
+    
+    // Decode user info (JWT)
+    const responsePayload = decodeJwtResponse(response.credential);
+    userIsSignedIn = true;
+    userEmail = responsePayload.email;
+    userName = responsePayload.name;
+
+    // Remove the login modal if it's open
+    const loginModal = document.getElementById("google-login-modal");
+    if (loginModal) loginModal.remove();
+
+    // Auto-fill forms with Google data
+    autoFillForms();
+
+    alert(`Welcome, ${userName}! You can now proceed.`);
+}
+
+function decodeJwtResponse(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
+
+function autoFillForms() {
+    // Fill Booking Form
+    if(document.getElementById('visitorName')) document.getElementById('visitorName').value = userName;
+    if(document.getElementById('visitorEmail')) document.getElementById('visitorEmail').value = userEmail;
+    
+    // Fill Contact Form
+    if(document.getElementById('contact-name')) document.getElementById('contact-name').value = userName;
+    if(document.getElementById('contact-email')) document.getElementById('contact-email').value = userEmail;
+}
+
+// ==========================================
+// 2. THE "GATE" (Login Popup)
+// ==========================================
+function showLoginModal(actionCallback) {
+    if (userIsSignedIn) {
+        actionCallback();
+        return;
+    }
+
+    if (document.getElementById("google-login-modal")) return;
+
+    const modalDiv = document.createElement("div");
+    modalDiv.id = "google-login-modal";
+    modalDiv.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 10000;
+        display: flex; justify-content: center; align-items: center;
+    `;
+    
+    modalDiv.innerHTML = `
+        <div style="background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; position: relative;">
+            <button id="close-login" style="position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 20px; cursor: pointer;">&times;</button>
+            <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 15px; color: #1B6E38;">Please Sign In</h2>
+            <p style="color: #666; margin-bottom: 20px;">To book a site visit or send a message, please verify your identity with Google.</p>
+            <div id="google-btn-container" style="display: flex; justify-content: center;"></div>
+        </div>
+    `;
+    
+    document.body.appendChild(modalDiv);
+
+    google.accounts.id.renderButton(
+        document.getElementById("google-btn-container"),
+        { theme: "outline", size: "large", width: 250 }
+    );
+
+    document.getElementById("close-login").onclick = () => modalDiv.remove();
+}
+
+// ==========================================
+// 3. BOOKING SYSTEM (With Gate)
 // ==========================================
 async function submitBooking(event) {
     event.preventDefault(); 
-    console.log("🖱️ Booking Button Clicked...");
+    
+    // GATE CHECK
+    if (!userIsSignedIn) {
+        showLoginModal(() => submitBooking(event)); 
+        return;
+    }
 
+    console.log("🖱️ Booking Button Clicked...");
     const confirmBtn = event.target;
     const originalText = confirmBtn.innerText;
     confirmBtn.innerText = "Processing...";
     confirmBtn.disabled = true;
 
-    // Grab data from the standard IDs we set up
     const bookingData = {
-        fullName: document.getElementById('visitorName')?.value || "Guest",
-        email: document.getElementById('visitorEmail')?.value || "no-email@test.com",
-        phone: document.getElementById('visitorPhone')?.value || "0000000000",
+        fullName: document.getElementById('visitorName')?.value || userName,
+        email: document.getElementById('visitorEmail')?.value || userEmail,
+        phone: document.getElementById('visitorPhone')?.value || "",
         date: document.getElementById('selectedDate')?.value || "No Date",
         timeSlot: document.getElementById('selectedTime')?.value || "No Time"
     };
@@ -29,12 +138,10 @@ async function submitBooking(event) {
         });
 
         if (response.ok) {
-            // Hide Form & Show Success Message
             const form = document.getElementById('bookingForm');
             const success = document.getElementById('bookingSuccess');
             if(form) form.style.display = 'none';
             if(success) success.style.display = 'block';
-            console.log("✅ Booking saved!");
         } else {
             alert("❌ Server Error: Could not save booking.");
         }
@@ -47,18 +154,23 @@ async function submitBooking(event) {
 }
 
 // ==========================================
-// 2. CONTACT FORM SYSTEM (Home/Contact Page)
+// 4. CONTACT FORM SYSTEM (With Gate)
 // ==========================================
 async function submitContact(event) {
     event.preventDefault();
-    console.log("📩 Send Message Clicked...");
 
+    // GATE CHECK
+    if (!userIsSignedIn) {
+        showLoginModal(() => { 
+            alert("Thanks for signing in! Please click 'Send Message' again.");
+        });
+        return;
+    }
+
+    console.log("📩 Send Message Clicked...");
     const sendBtn = event.target.querySelector('button[type="submit"]');
     const originalText = sendBtn ? sendBtn.innerText : "Sending...";
-    if(sendBtn) {
-        sendBtn.innerText = "Sending...";
-        sendBtn.disabled = true;
-    }
+    if(sendBtn) { sendBtn.innerText = "Sending..."; sendBtn.disabled = true; }
 
     const contactData = {
         name: document.getElementById('contact-name')?.value,
@@ -78,39 +190,27 @@ async function submitContact(event) {
         if (response.ok) {
             alert("✅ Message Sent Successfully!");
             event.target.reset(); 
-            console.log("✅ Contact message saved!");
         } else {
             alert("❌ Failed to send message.");
         }
     } catch (error) {
-        alert("❌ Network Error. Is backend running?");
+        alert("❌ Network Error.");
     } finally {
-        if(sendBtn) {
-            sendBtn.innerText = originalText;
-            sendBtn.disabled = false;
-        }
+        if(sendBtn) { sendBtn.innerText = originalText; sendBtn.disabled = false; }
     }
 }
 
 // ==========================================
-// 3. NEWSLETTER SUBSCRIPTION (Shared)
+// 5. NEWSLETTER (No Gate)
 // ==========================================
 async function subscribeToNewsletter() {
     const email = document.getElementById("news-email")?.value;
     const status = document.getElementById("news-status");
-
-    if(!status) return; // If footer not present, skip silently
+    if(!status) return;
 
     if(!email) {
         status.style.color = "#ff6b6b";
         status.innerText = "Please enter an email.";
-        return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailRegex.test(email)) {
-        status.style.color = "#ff6b6b";
-        status.innerText = "Please enter a valid email address.";
         return;
     }
 
@@ -127,41 +227,37 @@ async function subscribeToNewsletter() {
         if (response.ok) {
             status.style.color = "#4FAF64";
             status.innerText = "✓ Subscribed successfully!";
-            const emailInput = document.getElementById("news-email");
-            if (emailInput) emailInput.value = "";
+            document.getElementById("news-email").value = "";
         } else {
             status.style.color = "#ff6b6b";
-            status.innerText = "Error subscribing. Please try again.";
+            status.innerText = "Error subscribing.";
         }
     } catch (error) {
-        console.error("Newsletter error:", error);
         status.style.color = "#ff6b6b";
-        status.innerText = "Network error. Please check your connection.";
+        status.innerText = "Network error.";
     }
 }
 
 // ==========================================
-// 4. ATTACH LISTENERS (The Clean Version)
+// 6. INITIALIZATION & LISTENERS
 // ==========================================
+loadGoogleLibrary();
+
 document.addEventListener('DOMContentLoaded', () => {
     
-    // A. Search for Booking Button (Exists on ALL pages)
+    // A. Intercept Booking Submit
     const bookingBtn = document.getElementById('submitBooking');
     if (bookingBtn) {
-        // Clone to clear old events
         const newBtn = bookingBtn.cloneNode(true);
         bookingBtn.parentNode.replaceChild(newBtn, bookingBtn);
         newBtn.addEventListener('click', submitBooking);
-        console.log("✅ Booking system active.");
     }
 
-    // B. Search for Contact Form (Only exists on Home & Contact pages)
+    // B. Intercept Contact Form Submit
     const contactForm = document.getElementById('home-contact-form');
     if (contactForm) {
         const newForm = contactForm.cloneNode(true);
         contactForm.parentNode.replaceChild(newForm, contactForm);
         newForm.addEventListener('submit', submitContact);
-        console.log("✅ Contact form active.");
     } 
-    // We removed the 'else' block here, so no more red warnings on Gallery/About page!
 });
