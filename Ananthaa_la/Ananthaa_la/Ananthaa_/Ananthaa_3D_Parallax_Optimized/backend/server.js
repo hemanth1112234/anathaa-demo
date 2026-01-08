@@ -115,6 +115,43 @@ app.get('/api/newsletter', async (req, res) => {
     }
 });
 
+// ==========================================
+// 5. DELETE ENDPOINTS (Remove from MongoDB)
+// ==========================================
+
+// Delete Booking
+app.delete('/api/bookings/:id', async (req, res) => {
+    try {
+        await Booking.findByIdAndDelete(req.params.id);
+        console.log("🗑️ Booking deleted:", req.params.id);
+        res.status(200).json({ message: "Booking deleted" });
+    } catch (error) {
+        res.status(500).json({ error: "Error deleting booking" });
+    }
+});
+
+// Delete Contact Message
+app.delete('/api/contacts/:id', async (req, res) => {
+    try {
+        await Contact.findByIdAndDelete(req.params.id);
+        console.log("🗑️ Contact deleted:", req.params.id);
+        res.status(200).json({ message: "Message deleted" });
+    } catch (error) {
+        res.status(500).json({ error: "Error deleting message" });
+    }
+});
+
+// Delete Newsletter Subscriber
+app.delete('/api/newsletter/:id', async (req, res) => {
+    try {
+        await NewsletterSubscriber.findByIdAndDelete(req.params.id);
+        console.log("🗑️ Newsletter subscriber deleted:", req.params.id);
+        res.status(200).json({ message: "Subscriber deleted" });
+    } catch (error) {
+        res.status(500).json({ error: "Error deleting subscriber" });
+    }
+});
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
