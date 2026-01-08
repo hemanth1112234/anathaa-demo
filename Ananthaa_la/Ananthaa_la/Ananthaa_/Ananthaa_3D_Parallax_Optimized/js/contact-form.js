@@ -93,7 +93,55 @@ async function submitContact(event) {
 }
 
 // ==========================================
-// 3. ATTACH LISTENERS (The Clean Version)
+// 3. NEWSLETTER SUBSCRIPTION (Shared)
+// ==========================================
+async function subscribeToNewsletter() {
+    const email = document.getElementById("news-email")?.value;
+    const status = document.getElementById("news-status");
+
+    if(!status) return; // If footer not present, skip silently
+
+    if(!email) {
+        status.style.color = "#ff6b6b";
+        status.innerText = "Please enter an email.";
+        return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailRegex.test(email)) {
+        status.style.color = "#ff6b6b";
+        status.innerText = "Please enter a valid email address.";
+        return;
+    }
+
+    status.style.color = "#888";
+    status.innerText = "Saving...";
+
+    try {
+        const response = await fetch('https://anathaa-demo.onrender.com/api/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+
+        if (response.ok) {
+            status.style.color = "#4FAF64";
+            status.innerText = "✓ Subscribed successfully!";
+            const emailInput = document.getElementById("news-email");
+            if (emailInput) emailInput.value = "";
+        } else {
+            status.style.color = "#ff6b6b";
+            status.innerText = "Error subscribing. Please try again.";
+        }
+    } catch (error) {
+        console.error("Newsletter error:", error);
+        status.style.color = "#ff6b6b";
+        status.innerText = "Network error. Please check your connection.";
+    }
+}
+
+// ==========================================
+// 4. ATTACH LISTENERS (The Clean Version)
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     

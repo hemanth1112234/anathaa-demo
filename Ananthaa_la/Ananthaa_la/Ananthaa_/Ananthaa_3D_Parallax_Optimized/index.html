@@ -2349,53 +2349,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
-        // Newsletter Subscription Function
-        async function subscribeToNewsletter() {
-            const email = document.getElementById("news-email").value;
-            const status = document.getElementById("news-status");
-            
-            if(!email) { 
-                status.style.color = "#ff6b6b";
-                status.innerText = "Please enter an email."; 
-                return; 
-            }
-
-            // Basic email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if(!emailRegex.test(email)) {
-                status.style.color = "#ff6b6b";
-                status.innerText = "Please enter a valid email address.";
-                return;
-            }
-
-            status.style.color = "#888";
-            status.innerText = "Saving...";
-
-            try {
-                // Send to your backend endpoint
-                const response = await fetch('https://anathaa-demo.onrender.com/api/newsletter', { 
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email })
-                });
-
-                if (response.ok) {
-                    status.style.color = "#4FAF64";
-                    status.innerText = "✓ Subscribed successfully!";
-                    document.getElementById("news-email").value = "";
-                } else {
-                    status.style.color = "#ff6b6b";
-                    status.innerText = "Error subscribing. Please try again.";
-                }
-            } catch (error) {
-                console.error("Newsletter error:", error);
-                status.style.color = "#ff6b6b";
-                status.innerText = "Network error. Please check your connection.";
-            }
-        }
-    </script>
-    
-    <script>
         // Initialize AOS
         document.addEventListener('DOMContentLoaded', function() {
             AOS.init({
