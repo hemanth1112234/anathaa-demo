@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananthaa Admin Panel</title>
+    <style>
+        /* Basic Reset & Font */
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; padding: 0; margin: 0; background: #f4f6f8; }
+
+        /* Login Overlay */
+        #login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:#1B6E38; display:flex; align-items:center; justify-content:center; z-index:999; }
+        .login-box { background: white; padding: 40px; border-radius: 8px; text-align:center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .login-input { padding: 10px; border: 1px solid #ddd; border-radius: 4px; width: 200px; margin-bottom: 10px; }
+        
+        /* Admin Layout */
+        .header { background: #1B6E38; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { margin: 0; font-size: 1.2rem; }
+        .logout-btn { background: rgba(255,255,255,0.2); color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 4px; }
+
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #ddd; }
+        .tab-btn {
+            padding: 12px 25px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: #666;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { color: #1B6E38; }
+        .tab-btn.active { color: #1B6E38; border-bottom: 3px solid #1B6E38; }
+
+        /* Tables */
+        .data-section { display: none; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .data-section.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        th { background-color: #f8f9fa; color: #333; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; }
+        tr:hover { background-color: #fcfcfc; }
+        
+        /* Specific Styles */
+        .status-badge { background: #e3f2fd; color: #1565c0; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2 style="color:#1B6E38; margin-top:0;">Admin Access</h2>
+            <input type="password" id="passwordInput" class="login-input" placeholder="Password">
+            <br>
+            <button onclick="checkPassword()" style="background:#1B6E38; color:white; border:none; padding:10px 20px; border-radius:4px; cursor:pointer;">Login</button>
+        </div>
+    </div>
+
+    <div id="admin-content" style="display:none;">
+        <div class="header">
+            <h1>Ananthaa Dashboard</h1>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('bookings')">Site Visits</button>
+                <button class="tab-btn" onclick="switchTab('contacts')">Contact Messages</button>
+                <button class="tab-btn" onclick="switchTab('newsletter')">Newsletter</button>
+            </div>
+
+            <div id="bookings-section" class="data-section active">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h2>📅 Site Visit Bookings</h2>
+                    <button onclick="fetchData('bookings')" style="cursor:pointer; color:#1B6E38;">↻ Refresh</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Visitor Name</th>
+                            <th>Contact Info</th>
+                            <th>Preferred Date</th>
+                            <th>Time Slot</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-table"></tbody>
+                </table>
+            </div>
+
+            <div id="contacts-section" class="data-section">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h2>✉️ Contact Messages</h2>
+                    <button onclick="fetchData('contacts')" style="cursor:pointer; color:#1B6E38;">↻ Refresh</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Subject</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contacts-table"></tbody>
+                </table>
+            </div>
+
+            <div id="newsletter-section" class="data-section">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h2>📢 Newsletter Subscribers</h2>
+                    <button onclick="fetchData('newsletter')" style="cursor:pointer; color:#1B6E38;">↻ Refresh</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subscribed Date</th>
+                            <th>Email Address</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="newsletter-table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Auth Logic
+        function checkPassword() {
+            const pass = document.getElementById('passwordInput').value;
+            if (pass === "admin123") { // CHANGE THIS PASSWORD!
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                // Load all data on login
+                fetchData('bookings');
+                fetchData('contacts');
+                fetchData('newsletter');
+            } else {
+                alert("Incorrect Password");
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        // 2. Tab Logic
+        function switchTab(tabName) {
+            // Hide all sections
+            document.querySelectorAll('.data-section').forEach(el => el.classList.remove('active'));
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById(tabName + '-section').classList.add('active');
+            // Activate button (finding by onclick attribute is a quick hack, or use indices)
+            event.target.classList.add('active');
+        }
+
+        // 3. Data Fetching Logic
+        async function fetchData(type) {
+            const tbody = document.getElementById(type + '-table');
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#888;">Loading data...</td></tr>';
+
+            try {
+                // Determine API endpoint
+                // New (Live Backend) - This connects Netlify to Render
+                const endpoint = `https://anathaa-demo.onrender.com/api/${type}`;
+                const response = await fetch(endpoint);
+                const data = await response.json();
+
+                tbody.innerHTML = ''; // Clear loading
+
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">No records found.</td></tr>';
+                    return;
+                }
+
+                // Render rows based on type
+                data.forEach(item => {
+                    let rowHtml = '';
+                    const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'N/A';
+
+                    if (type === 'bookings') {
+                        rowHtml = `
+                            <tr>
+                                <td>${dateStr}</td>
+                                <td><strong>${item.fullName || item.name}</strong></td>
+                                <td>${item.email}<br><small>${item.phone}</small></td>
+                                <td>${item.date ? new Date(item.date).toDateString() : '-'}</td>
+                                <td><span class="status-badge">${item.timeSlot}</span></td>
+                            </tr>
+                        `;
+                    } else if (type === 'contacts') {
+                        rowHtml = `
+                            <tr>
+                                <td>${dateStr}</td>
+                                <td>${item.fullName || item.name}</td>
+                                <td>${item.phone || '-'}</td>
+                                <td><strong>${item.subject}</strong></td>
+                                <td style="max-width:300px;">${item.message}</td>
+                            </tr>
+                        `;
+                    } else if (type === 'newsletter') {
+                        rowHtml = `
+                            <tr>
+                                <td>${dateStr}</td>
+                                <td><strong>${item.email}</strong></td>
+                                <td><span class="status-badge" style="background:#e8f5e9; color:#2e7d32;">Active</span></td>
+                            </tr>
+                        `;
+                    }
+                    tbody.innerHTML += rowHtml;
+                });
+
+            } catch (error) {
+                console.error(error);
+                tbody.innerHTML = '<tr><td colspan="5" style="color:red; text-align:center;">Error loading data. Check console.</td></tr>';
+            }
+        }
+    </script>
+</body>
+</html>

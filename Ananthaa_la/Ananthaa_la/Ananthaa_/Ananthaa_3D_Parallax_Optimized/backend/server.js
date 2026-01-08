@@ -24,7 +24,7 @@ const BookingSchema = new mongoose.Schema({
     timeSlot: String,
     createdAt: { type: Date, default: Date.now }
 });
-const Booking = mongoose.model('Booking', BookingSchema);
+const Booking = mongoose.model('Booking', BookingSchema, 'bookings');
 
 app.post('/api/book-visit', async (req, res) => {
     try {
@@ -48,7 +48,7 @@ const ContactSchema = new mongoose.Schema({
     message: String,
     createdAt: { type: Date, default: Date.now }
 });
-const Contact = mongoose.model('Contact', ContactSchema);
+const Contact = mongoose.model('Contact', ContactSchema, 'contacts');
 
 app.post('/api/contact', async (req, res) => {
     try {
@@ -68,7 +68,7 @@ const NewsletterSchema = new mongoose.Schema({
     email: String,
     createdAt: { type: Date, default: Date.now }
 });
-const NewsletterSubscriber = mongoose.model('NewsletterSubscriber', NewsletterSchema);
+const NewsletterSubscriber = mongoose.model('NewsletterSubscriber', NewsletterSchema, 'newslettersubscribers');
 
 app.post('/api/newsletter', async (req, res) => {
     try {
@@ -78,6 +78,40 @@ app.post('/api/newsletter', async (req, res) => {
         res.status(201).json({ message: "Subscribed Successfully!" });
     } catch (error) {
         res.status(500).json({ error: "Server Error" });
+    }
+});
+
+// ==========================================
+// 4. GET ENDPOINTS (Retrieve Data)
+// ==========================================
+
+// GET Bookings
+app.get('/api/bookings', async (req, res) => {
+    try {
+        const data = await Booking.find().sort({ createdAt: -1 });
+        res.json(data);
+    } catch (err) { 
+        res.status(500).json({ error: err.message }); 
+    }
+});
+
+// GET Contacts
+app.get('/api/contacts', async (req, res) => {
+    try {
+        const data = await Contact.find().sort({ createdAt: -1 });
+        res.json(data);
+    } catch (err) { 
+        res.status(500).json({ error: err.message }); 
+    }
+});
+
+// GET Newsletter Subscribers
+app.get('/api/newsletter', async (req, res) => {
+    try {
+        const data = await NewsletterSubscriber.find().sort({ createdAt: -1 });
+        res.json(data);
+    } catch (err) { 
+        res.status(500).json({ error: err.message }); 
     }
 });
 

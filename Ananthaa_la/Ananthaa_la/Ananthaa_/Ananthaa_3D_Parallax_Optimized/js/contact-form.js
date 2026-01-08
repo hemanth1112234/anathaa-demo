@@ -3,7 +3,7 @@ console.log("🚀 Google Auth & Backend Script Loaded!");
 // ==========================================
 // 🔴 CONFIGURATION
 // ==========================================
-const GOOGLE_CLIENT_ID = "468110163912-3mrhnvqore5hohm8dnl4u1dv9ptdj94i.apps.googleusercontent.com"; 
+var GOOGLE_CLIENT_ID = "468110163912-3mrhnvqore5hohm8dnl4u1dv9ptdj94i.apps.googleusercontent.com"; 
 
 let userIsSignedIn = false;
 let userEmail = "";

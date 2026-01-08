@@ -729,6 +729,78 @@
        html[data-theme="dark"] .lap-border rect {
            stroke: #c9a961 !important;
        }
+
+       /* Newsletter Styles */
+       .newsletter-title {
+           font-family: "Playfair Display", serif;
+           font-size: 1.5rem;
+           font-weight: 600;
+           color: white;
+           margin-bottom: 1rem;
+       }
+       
+       .newsletter-description {
+           color: #9ca3af;
+           font-size: 0.9rem;
+           line-height: 1.6;
+           margin-bottom: 1.5rem;
+       }
+       
+       .newsletter-input {
+           background: rgba(255, 255, 255, 0.1);
+           border: 1px solid rgba(255, 255, 255, 0.2);
+           color: white;
+           padding: 0.75rem 1rem;
+           border-radius: 0.5rem;
+           font-size: 0.9rem;
+           transition: all 0.3s ease;
+           margin-bottom: 0.5rem;
+       }
+       
+       .newsletter-input::placeholder {
+           color: rgba(255, 255, 255, 0.6);
+       }
+       
+       .newsletter-input:focus {
+           outline: none;
+           border-color: #C9A961;
+           background: rgba(255, 255, 255, 0.15);
+       }
+       
+       /* Newsletter Button - Light Theme (Green) */
+       .newsletter-button {
+           background: linear-gradient(135deg, #1B6E38 0%, #14552D 100%);
+           color: white;
+           padding: 0.75rem 1.5rem;
+           border-radius: 0.5rem;
+           font-weight: 600;
+           border: none;
+           cursor: pointer;
+           transition: all 0.3s ease;
+           position: relative;
+           overflow: hidden;
+       }
+       
+       .newsletter-button:hover {
+           background: linear-gradient(135deg, #14552D 0%, #0F4D2E 100%);
+           transform: translateY(-2px);
+           box-shadow: 0 8px 25px rgba(27, 110, 56, 0.4);
+       }
+       
+       .newsletter-button:active {
+           transform: none;
+           box-shadow: none;
+       }
+
+       /* Newsletter Button - Dark Theme (Gold) */
+       html[data-theme="dark"] .newsletter-button {
+           background: linear-gradient(135deg, #C9A961 0%, #b08134 100%);
+       }
+       
+       html[data-theme="dark"] .newsletter-button:hover {
+           background: linear-gradient(135deg, #b08134 0%, #9f7b38 100%);
+           box-shadow: 0 8px 25px rgba(201, 154, 70, 0.4);
+       }
     </style>
 </head>
 
