@@ -41,7 +41,9 @@ app.post('/api/book-visit', async (req, res) => {
 // 2. CONTACT SYSTEM (For "Send us a Message")
 // ==========================================
 const ContactSchema = new mongoose.Schema({
+    // Keep both keys so we can ingest legacy payloads that sent `name` only
     fullName: String,
+    name: String,
     email: String,
     phone: String,
     subject: String,
@@ -52,9 +54,23 @@ const Contact = mongoose.model('Contact', ContactSchema, 'contacts');
 
 app.post('/api/contact', async (req, res) => {
     try {
-        const newMessage = new Contact(req.body);
+        const { fullName, name, email, phone, subject, message } = req.body;
+
+        // Normalise incoming payloads so both new and legacy clients store a name
+        const fallbackName = (fullName || name || '').trim() || undefined;
+
+        const payload = {
+            fullName: fallbackName,
+            name: fallbackName,
+            email,
+            phone,
+            subject,
+            message
+        };
+
+        const newMessage = new Contact(payload);
         await newMessage.save();
-        console.log("📩 New Contact Message:", req.body.subject);
+        console.log("📩 New Contact Message:", payload.subject);
         res.status(201).json({ message: "Message Sent Successfully!" });
     } catch (error) {
         res.status(500).json({ error: "Server Error" });

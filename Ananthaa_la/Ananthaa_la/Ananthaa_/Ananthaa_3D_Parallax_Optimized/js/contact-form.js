@@ -180,8 +180,18 @@ async function submitContact(event) {
     const originalText = sendBtn ? sendBtn.innerText : "Sending...";
     if(sendBtn) { sendBtn.innerText = "Sending..."; sendBtn.disabled = true; }
 
+    const nameFieldValue = document.getElementById('contact-name')?.value || "";
+    const contactName = (nameFieldValue || userName || "").trim();
+
+    if (!contactName) {
+        alert("Please enter your full name.");
+        if(sendBtn) { sendBtn.innerText = originalText; sendBtn.disabled = false; }
+        return;
+    }
+
     const contactData = {
-        name: document.getElementById('contact-name')?.value,
+        fullName: contactName,
+        name: contactName, // keep both keys so backend can normalise legacy payloads
         email: document.getElementById('contact-email')?.value,
         phone: document.getElementById('contact-phone')?.value,
         subject: document.getElementById('contact-subject')?.value,

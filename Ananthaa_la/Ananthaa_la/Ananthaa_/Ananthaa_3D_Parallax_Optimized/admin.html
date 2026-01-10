@@ -106,6 +106,7 @@
                         <tr>
                             <th>Date</th>
                             <th>Name</th>
+                            <th>Email</th>
                             <th>Phone</th>
                             <th>Subject</th>
                             <th>Message</th>
@@ -253,14 +254,20 @@
 
                 data.forEach(item => {
                     const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'N/A';
+                    const displayEmail = item.email || '-';
+                    const displayName = item.fullName || item.name || 'Unknown';
+                    const displayPhone = item.phone || '-';
+                    const subject = item.subject || '-';
+                    const message = item.message || '-';
                     
                     tbody.innerHTML += `
                         <tr>
                             <td>${dateStr}</td>
-                            <td>${item.fullName || item.name}</td>
-                            <td>${item.phone || '-'}</td>
-                            <td><strong>${item.subject}</strong></td>
-                            <td style="max-width:300px;">${item.message}</td>
+                            <td>${displayName}</td>
+                            <td>${displayEmail}</td>
+                            <td>${displayPhone}</td>
+                            <td><strong>${subject}</strong></td>
+                            <td style="max-width:300px;">${message}</td>
                             <td>
                                 <button onclick="deleteItem('contacts', '${item._id}')" 
                                     style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
