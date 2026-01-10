@@ -41,7 +41,6 @@ app.post('/api/book-visit', async (req, res) => {
 // 2. CONTACT SYSTEM (For "Send us a Message")
 // ==========================================
 const ContactSchema = new mongoose.Schema({
-    // Keep both keys so we can ingest legacy payloads that sent `name` only
     fullName: String,
     name: String,
     email: String,
