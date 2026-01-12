@@ -1,45 +1,49 @@
-// Ananthaa Spaces Chatbot - No History Persistence (Always Fresh Start)
+// Ananthaa Spaces Chatbot - Old Server + New Features
 (function () {
   const EL = {
-    toggleBtn: null,
-    chatWin: null,
-    closeBtn: null,
-    sendBtn: null,
-    inputEl: null,
-    inputArea: null,
-    msgsEl: null,
-    formEl: null,
-    submitBtn: null,
-    formName: null,
-    formPhone: null,
+    toggleBtn: null, chatWin: null, closeBtn: null,
+    sendBtn: null, inputEl: null, inputArea: null,
+    msgsEl: null, formEl: null, submitBtn: null,
+    formName: null, formPhone: null,
   };
 
-  // CHANGE THIS BACK TO YOUR OLD SERVER LINK
+  // ✅ 1. USING YOUR OLD SERVER URL
   const API_URL = 'https://anathaa-demo.onrender.com/api/leads';
 
+  // ✅ 2. NEW VARIABLE TO TRACK USER ACTIONS
+  let lastUserInteraction = "Opened Chatbot"; 
+
+  // ✅ 3. TRANSLATOR FUNCTION FOR NICE PAGE NAMES
+  function getNicePageName() {
+    const path = window.location.pathname;
+    if (path === '/' || path.includes('index')) return 'Home Page';
+    if (path.includes('projects')) return 'Projects Page';
+    if (path.includes('gallery')) return 'Gallery Page';
+    if (path.includes('about'))    return 'About Page';
+    if (path.includes('contact'))  return 'Contact Page';
+    return 'Custom Page';
+  }
+
   const knowledgeBase = {
-    // 1. PRICE
     price: {
-      keywords: ['price', 'cost', 'rate', 'starting', 'budget', 'lakh', 'crore', 'pricing'],
+      keywords: ['price', 'cost', 'budget', 'lakh', 'crore'],
       answer: 'Our apartments start from ₹1.2 Cr in Gachibowli. Would you like the complete price sheet?'
     },
-    // 2. SITE VISIT / BOOKING
     booking: {
-      keywords: ['visit', 'tour', 'book', 'schedule', 'slot', 'seeing', 'site visit'],
-      answer: 'We would be happy to arrange a site visit for you. Please share your details below to book a slot.'
+      keywords: ['visit', 'tour', 'book', 'slot', 'site visit'],
+      answer: 'We would be happy to arrange a site visit for you. Please share your details below.'
     },
-    // 3. LOCATION
     location: {
-      keywords: ['where', 'location', 'address', 'map', 'area', 'district', 'located', 'place'],
+      keywords: ['where', 'location', 'address', 'map'],
       answer: 'We are strategically located in Gachibowli and the Financial District, Hyderabad.'
     },
     amenities: {
-      keywords: ['amenities', 'gym', 'pool', 'clubhouse', 'swimming', 'facilities', 'parking'],
-      answer: 'We offer world-class amenities including a Clubhouse, Swimming Pool, Gym, and 24/7 Security.'
+      keywords: ['amenities', 'gym', 'pool', 'clubhouse'],
+      answer: 'We offer world-class amenities including a Clubhouse, Swimming Pool, and Gym.'
     },
     contact: {
-      keywords: ['contact', 'call', 'phone', 'number', 'email', 'speak', 'talk', 'advisor'],
-      answer: 'You can reach us at +91 9538 123 123. Would you like a callback from our team?'
+      keywords: ['contact', 'call', 'phone', 'email', 'advisor'],
+      answer: 'You can reach us at +91 9538 123 123. Would you like a callback?'
     }
   };
 
@@ -61,23 +65,16 @@
     if (!EL.toggleBtn || !EL.chatWin) return;
 
     EL.toggleBtn.addEventListener('click', openChat);
-    if (EL.closeBtn) EL.closeBtn.addEventListener('click', closeChat);
-    if (EL.sendBtn) EL.sendBtn.addEventListener('click', handleSend);
-    if (EL.inputEl) EL.inputEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
-    if (EL.submitBtn) EL.submitBtn.addEventListener('click', submitForm);
-
-    console.log('Chatbot initialized successfully!');
+    if(EL.closeBtn) EL.closeBtn.addEventListener('click', closeChat);
+    if(EL.sendBtn) EL.sendBtn.addEventListener('click', handleSend);
+    if(EL.inputEl) EL.inputEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
+    if(EL.submitBtn) EL.submitBtn.addEventListener('click', submitForm);
   }
 
   function openChat() {
     EL.chatWin.classList.add('active');
     EL.toggleBtn.classList.add('open');
-    
-    // Always start fresh - check if messages area is empty
-    const hasMessages = EL.msgsEl.children.length > 0;
-
-    if (!hasMessages) {
-      // Always show welcome and initial options on first open
+    if (EL.msgsEl.children.length === 0) {
       botReply('Welcome to Ananthaa Spaces. How may we assist you?');
       showInitialOptions();
     }
@@ -86,7 +83,6 @@
   function closeChat() {
     EL.chatWin.classList.remove('active');
     EL.toggleBtn.classList.remove('open');
-    // Reset UI
     if (EL.inputArea) EL.inputArea.classList.remove('hidden');
     if (EL.formEl) EL.formEl.classList.remove('active');
   }
@@ -94,11 +90,9 @@
   function addMessage(text, who) {
     const wrapper = document.createElement('div');
     wrapper.className = `chatbot-message ${who}`;
-    
     const bubble = document.createElement('div');
     bubble.className = 'chatbot-message-bubble';
     bubble.innerHTML = text;
-
     wrapper.appendChild(bubble);
     EL.msgsEl.appendChild(wrapper);
     EL.msgsEl.scrollTop = EL.msgsEl.scrollHeight;
@@ -115,13 +109,8 @@
   }
 
   function showOptions(options) {
-    // Remove any existing option buttons to prevent duplicates
-    const oldOpts = EL.msgsEl.querySelectorAll('.chatbot-options');
-    oldOpts.forEach(el => el.remove());
-
     const div = document.createElement('div');
     div.className = 'chatbot-options';
-    
     options.forEach(opt => {
       const btn = document.createElement('button');
       btn.className = 'chatbot-option-btn';
@@ -129,52 +118,39 @@
       btn.onclick = () => handleOptionClick(opt.action, opt.text);
       div.appendChild(btn);
     });
-
     EL.msgsEl.appendChild(div);
     EL.msgsEl.scrollTop = EL.msgsEl.scrollHeight;
   }
 
   function handleOptionClick(action, text) {
     addMessage(text, 'user');
+    
+    // ✅ RECORD THE ACTION
+    lastUserInteraction = `Clicked option: ${text}`;
 
-    // Remove buttons after clicking
     const oldOpts = EL.msgsEl.querySelectorAll('.chatbot-options');
-    if (oldOpts.length > 0) oldOpts[oldOpts.length - 1].remove();
+    if(oldOpts.length > 0) oldOpts[oldOpts.length - 1].remove();
 
     setTimeout(() => {
       if (action === 'explore') {
         botReply('What kind of project are you looking for?');
         showOptions([
-          { text: 'Ongoing Projects', action: 'details_ongoing' },
-          { text: 'Upcoming Launches', action: 'details_upcoming' }
+            { text: 'Ongoing Projects', action: 'details_ongoing' },
+            { text: 'Upcoming Launches', action: 'details_upcoming' }
         ]);
-      } 
-      else if (action === 'price') {
-        botReply('Our apartments start from ₹1.2 Cr. What details do you need?');
+      } else if (action === 'price') {
+        botReply('Our apartments start from ₹1.2 Cr. Need the full price sheet?');
         showOptions([
-          { text: 'Complete Price Sheet', action: 'form_price' },
-          { text: 'Payment Plans', action: 'form_payment' }
+            { text: 'Yes, Send Price Sheet', action: 'form_price' },
+            { text: 'Payment Plans', action: 'form_payment' }
         ]);
-      } 
-      else if (action === 'sales' || action === 'form_price' || action === 'form_payment') {
-        botReply('Please provide your details below, and our team will share the information with you.');
+      } else if (['sales', 'form_price', 'form_payment'].includes(action)) {
+        botReply('Please enter your details below. Our team will contact you shortly.');
         showContactForm();
-      }
-      else if (action === 'details_ongoing') {
-        botReply('<b>Ananthaa NeoCity</b> in Gachibowli is currently in progress. Would you like to visit?');
-        showOptions([
-          { text: 'Book Site Visit', action: 'sales' }, 
-          { text: 'Back to Menu', action: 'restart' }
-        ]);
-      }
-      else if (action === 'details_upcoming') {
-        botReply('<b>Ananthaa Towers</b> is our upcoming luxury high-rise. Pre-launch offers available.');
-        showOptions([
-          { text: 'Get Price Details', action: 'price' }, 
-          { text: 'Back to Menu', action: 'restart' }
-        ]);
-      }
-      else if (action === 'restart') {
+      } else if (action === 'details_ongoing') {
+        botReply('<b>Ananthaa NeoCity</b> is currently in progress.');
+        showOptions([{ text: 'Book Site Visit', action: 'sales' }, { text: 'Back', action: 'restart' }]);
+      } else if (action === 'restart') {
         showInitialOptions();
       }
     }, 500);
@@ -185,6 +161,10 @@
     if (!text) return;
     
     addMessage(text, 'user');
+    
+    // ✅ RECORD THE TYPED TEXT
+    lastUserInteraction = `Typed: "${text}"`;
+    
     EL.inputEl.value = '';
 
     let found = false;
@@ -203,7 +183,7 @@
 
     if (!found) {
       setTimeout(() => {
-        botReply("I don't have that specific info right now. Please share your details below, and our team will assist you.");
+        botReply("I don't have that info right now. Please share your details below.");
         showContactForm();
       }, 500);
     }
@@ -213,6 +193,7 @@
     if (EL.formEl) {
       EL.formEl.classList.add('active');
       if (EL.inputArea) EL.inputArea.classList.add('hidden');
+      EL.msgsEl.scrollTop = EL.msgsEl.scrollHeight;
     }
   }
 
@@ -221,27 +202,29 @@
     const phone = EL.formPhone.value.trim();
 
     if (!name || !phone) {
-      alert('Please enter both Name and Phone.');
+      alert('Please enter Name and Phone.');
       return;
     }
 
     EL.submitBtn.textContent = 'Sending...';
     EL.submitBtn.disabled = true;
 
+    // ✅ SENDING THE NEW DATA FIELDS
     fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name,
+        name, 
         phone,
-        page_source: window.location.pathname,
+        page_source: getNicePageName(), // <--- Converts "/" to "Home Page"
+        last_query: lastUserInteraction, // <--- Sends the user's last action
         inquiry_details: 'Chatbot Lead'
       })
     })
     .then(res => {
-      botReply('Thank you! We will contact you shortly.');
-      EL.formEl.classList.remove('active');
+      botReply('Thank you! Your details have been sent.');
       if (EL.inputArea) EL.inputArea.classList.remove('hidden'); 
+      if (EL.formEl) EL.formEl.classList.remove('active');       
       EL.submitBtn.textContent = 'Send Inquiry';
       EL.submitBtn.disabled = false;
       EL.formName.value = '';
@@ -249,15 +232,14 @@
     })
     .catch(err => {
       console.error(err);
-      botReply('Thank you! Your request is received.');
+      botReply('Thank you! We received your request.');
       EL.submitBtn.textContent = 'Send Inquiry';
       EL.submitBtn.disabled = false;
-      EL.formEl.classList.remove('active');
       if (EL.inputArea) EL.inputArea.classList.remove('hidden');
+      if (EL.formEl) EL.formEl.classList.remove('active');
     });
   }
 
-  // Initialize on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
