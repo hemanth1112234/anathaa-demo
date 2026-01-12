@@ -74,6 +74,7 @@
                 <button class="tab-btn active" onclick="switchTab('bookings')">Site Visits</button>
                 <button class="tab-btn" onclick="switchTab('contacts')">Contact Messages</button>
                 <button class="tab-btn" onclick="switchTab('newsletter')">Newsletter</button>
+                <button class="tab-btn" onclick="switchTab('leads')">Chatbot Leads</button>
             </div>
 
             <div id="bookings-section" class="data-section active">
@@ -134,11 +135,32 @@
                     <tbody id="newsletter-body"></tbody>
                 </table>
             </div>
+
+            <section id="leads-section" class="data-section">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h2>🤖 Chatbot Leads</h2>
+                    <button onclick="loadLeads()" style="cursor:pointer; color:#1B6E38;">↻ Refresh</button>
+                </div>
+                <table id="leads-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Source</th>
+                            <th>Last Query</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leads-body"></tbody>
+                </table>
+            </section>
         </div>
     </div>
 
     <script>
         const API_BASE = "https://anathaa-demo.onrender.com/api";
+        const LEADS_API = "https://anathaa-demo.onrender.com/api/leads";
 
         // 1. Auth Logic
         function checkPassword() {
@@ -150,6 +172,7 @@
                 loadBookings();
                 loadContacts();
                 loadNewsletter();
+                loadLeads();
             } else {
                 alert("Incorrect Password");
             }
@@ -187,6 +210,7 @@
                     if (type === 'bookings') loadBookings();
                     else if (type === 'contacts') loadContacts();
                     else if (type === 'newsletter') loadNewsletter();
+                    else if (type === 'leads') loadLeads();
                 } else {
                     alert("❌ Error deleting item");
                 }
@@ -320,6 +344,51 @@
                 tbody.innerHTML = '<tr><td colspan="4" style="color:red; text-align:center;">Error loading data.</td></tr>';
             }
         }
+
+        // 7. LOAD LEADS
+                async function loadLeads() {
+                        const tbody = document.getElementById('leads-body');
+                        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
+
+                        try {
+                                const res = await fetch(`${API_BASE}/leads`);
+                                const data = await res.json();
+
+                                tbody.innerHTML = '';
+                                if (data.length === 0) {
+                                        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No leads yet.</td></tr>';
+                                        return;
+                                }
+
+                                data.forEach(item => {
+                                        const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleString() : 'N/A';
+                                        const displayName = item.name || '-';
+                                        const displayPhone = item.phone || '-';
+                                        const source = item.page_source || '-';
+                                        const lastQuery = item.last_query || '-';
+                                        const inquiryDetails = item.inquiry_details ? JSON.stringify(item.inquiry_details) : '';
+
+                                        tbody.innerHTML += `
+                                                <tr>
+                                                        <td>${dateStr}</td>
+                                                        <td>${displayName}</td>
+                                                        <td>${displayPhone}</td>
+                                                        <td>${source}</td>
+                                                        <td>${lastQuery || inquiryDetails}</td>
+                                                        <td>
+                                                                <button onclick="deleteItem('leads', '${item._id}')"
+                                                                        style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
+                                                                        Delete
+                                                                </button>
+                                                        </td>
+                                                </tr>
+                                        `;
+                                });
+                        } catch (error) {
+                                console.error(error);
+                                tbody.innerHTML = '<tr><td colspan="6" style="color:red; text-align:center;">Error loading data.</td></tr>';
+                        }
+                }
     </script>
 </body>
 </html>

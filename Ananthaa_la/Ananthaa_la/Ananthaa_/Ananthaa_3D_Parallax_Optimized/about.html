@@ -12,6 +12,7 @@
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="./css/chatbot.css" />
 
   <style>
     /* --- CSS VARIABLES --- */
@@ -1483,5 +1484,40 @@
     </script>
   
     <script src="js/contact-form.js"></script>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+      <button class="chatbot-float-btn" id="ananthaaChatToggle" aria-label="Open chat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      </button>
+
+      <div class="chatbot-window" id="ananthaaChatWindow" aria-label="Ananthaa Chatbot" role="dialog" aria-modal="false">
+        <div class="chatbot-header">
+          <h3>Ananthaa Spaces</h3>
+          <button class="chatbot-close-btn" id="ananthaaChatClose" aria-label="Close">×</button>
+        </div>
+
+        <div class="chatbot-messages" id="ananthaaChatMessages"></div>
+
+        <form class="chatbot-form" id="ananthaaChatForm">
+          <div class="chatbot-form-group">
+            <label for="chatbotFormName">Name</label>
+            <input type="text" id="chatbotFormName" placeholder="Your Name" />
+          </div>
+          <div class="chatbot-form-group">
+            <label for="chatbotFormPhone">Phone</label>
+            <input type="tel" id="chatbotFormPhone" placeholder="+91 98765 43210" />
+          </div>
+          <button type="button" class="chatbot-submit-btn" id="chatbotSubmitBtn">Send Inquiry</button>
+        </form>
+
+        <div class="chatbot-input-area">
+          <input type="text" class="chatbot-text-input" id="ananthaaChatInput" placeholder="Ask a question..." autocomplete="off" />
+          <button class="chatbot-send-btn" id="ananthaaChatSend" aria-label="Send">→</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/chatbot.js"></script>
 </body>
 </html>

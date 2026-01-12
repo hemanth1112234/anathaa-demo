@@ -167,6 +167,47 @@ app.delete('/api/newsletter/:id', async (req, res) => {
     }
 });
 
+// ==========================================
+// 4. CHATBOT LEADS SYSTEM (NEW)
+// ==========================================
+const LeadSchema = new mongoose.Schema({
+    name: String,
+    phone: String,
+    page_source: String,
+    last_query: String,
+    inquiry_details: mongoose.Schema.Types.Mixed,
+    createdAt: { type: Date, default: Date.now }
+});
+const Lead = mongoose.model('Lead', LeadSchema, 'leads');
+
+app.post('/api/leads', async (req, res) => {
+    try {
+        console.log("📥 Received Chatbot Lead:", req.body);
+        const newLead = new Lead(req.body);
+        await newLead.save();
+        console.log("✅ Lead Saved Successfully:", req.body.name);
+        res.status(201).json({ message: "Lead Captured Successfully!" });
+    } catch (error) {
+        console.error("❌ Error saving lead:", error);
+        res.status(500).json({ error: "Server Error saving lead" });
+    }
+});
+
+app.get('/api/leads', async (req, res) => {
+    try {
+        const data = await Lead.find().sort({ createdAt: -1 });
+        res.json(data);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.delete('/api/leads/:id', async (req, res) => {
+    try {
+        await Lead.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: "Lead deleted" });
+    } catch (error) { res.status(500).json({ error: "Error deleting lead" }); }
+});
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+    

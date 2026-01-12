@@ -62,6 +62,7 @@
     <link href="./css/styles.css" rel="stylesheet">
     
     <link rel="stylesheet" href="./css/theme-dark.css">
+    <link rel="stylesheet" href="./css/chatbot.css">
     
     <style>
         /* Theme-aware background color variables (replace background images) */
@@ -2666,5 +2667,39 @@
     <script src="js/main.js"></script>
     <script src="./js/theme-manager.js"></script>
     <script src="js/contact-form.js"></script>
+    
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+      <button class="chatbot-float-btn" id="ananthaaChatToggle" aria-label="Open chat">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+      </button>
+      <div class="chatbot-window" id="ananthaaChatWindow" aria-label="Ananthaa Chatbot" role="dialog" aria-modal="false">
+        <div class="chatbot-header">
+          <h3>Ananthaa Spaces</h3>
+          <button class="chatbot-close-btn" id="ananthaaChatClose" aria-label="Close">×</button>
+        </div>
+        <div class="chatbot-messages chat-content" id="ananthaaChatMessages"></div>
+        <form class="chatbot-form" id="ananthaaChatForm" aria-label="Chatbot contact form">
+          <div class="chatbot-form-group">
+            <label for="chatbotFormName">Name</label>
+            <input id="chatbotFormName" type="text" placeholder="Your name" required>
+          </div>
+          <div class="chatbot-form-group">
+            <label for="chatbotFormPhone">Phone</label>
+            <input id="chatbotFormPhone" type="tel" placeholder="+91 XXXXX XXXXX" required>
+          </div>
+          <button type="button" class="chatbot-submit-btn" id="chatbotSubmitBtn">Send Inquiry</button>
+        </form>
+        <div class="chatbot-input-area">
+          <input type="text" class="chatbot-text-input" id="ananthaaChatInput" placeholder="Ask a question..." autocomplete="off">
+          <button class="chatbot-send-btn" id="ananthaaChatSend" aria-label="Send">→</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Chatbot Script -->
+    <script src="js/chatbot.js"></script>
 </body>
 </html>
